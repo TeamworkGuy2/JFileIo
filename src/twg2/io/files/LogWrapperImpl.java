@@ -46,6 +46,12 @@ public class LogWrapperImpl implements LogWrapper, Closeable {
 
 
 	@Override
+	public int getLevelValue() {
+		return level;
+	}
+
+
+	@Override
 	public boolean wouldLog(Level level) {
 		return level.intValue() >= this.level;
 	}
@@ -54,6 +60,22 @@ public class LogWrapperImpl implements LogWrapper, Closeable {
 	@Override
 	public void setLevel(Level level) {
 		this.level = level.intValue();
+	}
+
+
+	/**
+	 * @return the class that this log wrapper is logging
+	 */
+	public Class<?> getLogForClass() {
+		return this.type;
+	}
+
+
+	/**
+	 * @return the underlying logger that this log wrapper logs to
+	 */
+	public Logging getWrappedLog() {
+		return this.log;
 	}
 
 
@@ -331,6 +353,12 @@ public class LogWrapperImpl implements LogWrapper, Closeable {
 	@Override
 	public void close() throws IOException {
 		log.close();
+	}
+
+
+	@Override
+	public String toString() {
+		return "{ level: " + this.getLevelValue() + ", logClass: " + type + ", logger: " + log + " }";
 	}
 
 }

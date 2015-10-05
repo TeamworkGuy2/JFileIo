@@ -25,13 +25,13 @@ public class ExecuteCmdTest {
 
 		System.out.println("running: '" + javaExeHelpCmd + "'");
 
-		LoggingImpl log = new LoggingImpl(Level.ALL, System.out);
+		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
 
 		ProcessIoStreamFactory.MemoryStreams streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		try(OutputStream outStream = streamFactory.openOutputStream();
 				OutputStream errStream = streamFactory.openErrorOutputStream()) {
 
-			ExecuteCmd.execSync(javaExeHelpCmd, log, false);
+			ExecuteCmd.execSync(javaExeHelpCmd, log);
 
 			System.out.println("\n==== output streams ====");
 			streamFactory.getOutputStreams().forEach((stream) -> {

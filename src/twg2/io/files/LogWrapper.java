@@ -15,6 +15,11 @@ public interface LogWrapper {
 	 */
 	public Level getLevel();
 
+	/**
+	 * @return the {@link Level} value associated with this log
+	 */
+	public int getLevelValue();
+
 	/** Check if the specified value would be logged by this log wrapper
 	 * @param level the level to compare to this object's log level
 	 * @return true if the specified log level is greater than or equal to this

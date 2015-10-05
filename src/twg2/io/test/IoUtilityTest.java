@@ -10,13 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import stringUtils.StringCompare;
-import stringUtils.StringModify;
-import stringUtils.StringReplace;
 import twg2.collections.tuple.Tuples;
 import twg2.io.files.CharsetUtil;
 import twg2.io.files.FileUtility;
 import twg2.io.files.Locations;
+import twg2.text.stringUtils.StringCompare;
+import twg2.text.stringUtils.StringHex;
+import twg2.text.stringUtils.StringReplace;
 
 /**
  * @author TeamworkGuy2
@@ -151,9 +151,9 @@ public final class IoUtilityTest {
 
 	private static void testToFromHex() throws IOException {
 		byte[] b = new byte[] { 1, 2, 3, 5, 7, 9, 10, 15, 20, 100, 127, -128, -10, 50};
-		StringReaderCustom source = new StringReaderCustom(StringModify.toHexString(b, 0, b.length));
+		StringReaderCustom source = new StringReaderCustom(StringHex.toHexString(b, 0, b.length));
 		source.setReadLessThanAsked(1);
-		byte[] result = StringModify.decodeHexStream(source);
+		byte[] result = StringHex.decodeHexStream(source);
 
 		if(b.length != result.length) { throw new Error(); }
 
@@ -162,16 +162,16 @@ public final class IoUtilityTest {
 		}
 
 		byte[] bytes2 = "testing a sentence of 23, it's \"content\" /contains\\ 'even' _number-of-characters!? A = 65;".getBytes(Charset.forName("US-ASCII"));
-		String str2Result = StringModify.toHexString(bytes2);
-		byte[] bytes2Result = StringModify.decodeHexString(str2Result);
+		String str2Result = StringHex.toHexString(bytes2);
+		byte[] bytes2Result = StringHex.decodeHexString(str2Result);
 		if(b.length != result.length) { throw new Error(); }
 		for(int i = 0; i < b.length; i++) {
 			if(b[i] != result[i]) { throw new Error(); }
 		}
 
 		String str3 = "B93AF10D5"; // odd number of digits
-		byte[] bytes3 = StringModify.decodeHexString(str3);
-		String str3Result = StringModify.toHexString(bytes3);
+		byte[] bytes3 = StringHex.decodeHexString(str3);
+		String str3Result = StringHex.toHexString(bytes3);
 		if(!str3Result.startsWith(str3)) { throw new Error(); }
 	}
 

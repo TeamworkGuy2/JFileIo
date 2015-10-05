@@ -2,7 +2,8 @@ package twg2.io.files;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.logging.Level;
@@ -14,9 +15,23 @@ import java.util.logging.Logger;
  * @since 2013-8-10
  */
 public final class LoggingImpl implements Logging {
-	private static final SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+	public static enum Format {
+		NONE,
+		LEVEL,
+		LEVEL_AND_CLASS,
+		DATETIME_LEVEL_AND_CLASS;
+	}
+
+
+	private static final DateTimeFormatter dateFormater = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 	private boolean doPrintLog = true;
 	private PrintStream output;
+	private Format format;
+	private PrintStream output2;
+	private Format format2;
+	private PrintStream output3;
+	private Format format3;
 	private Level level;
 	private int levelValue;
 	private ArrayList<Level> levels;
@@ -31,9 +46,24 @@ public final class LoggingImpl implements Logging {
 	 * @param level the {@link Level} of messages to log
 	 * @param outputStream the output stream to print messages to
 	 */
-	public LoggingImpl(Level level, PrintStream outputStream) {
+	public LoggingImpl(Level level, PrintStream outputStream, Format format) {
+		this(level, outputStream, format, null, null, null, null);
+	}
+
+
+	public LoggingImpl(Level level, PrintStream outputStream, Format format, PrintStream outputStream2, Format format2) {
+		this(level, outputStream, format, outputStream2, format2, null, null);
+	}
+
+
+	public LoggingImpl(Level level, PrintStream outputStream, Format format, PrintStream outputStream2, Format format2, PrintStream outputStream3, Format format3) {
 		this.level = level;
 		this.output = outputStream;
+		this.format = format;
+		this.output2 = outputStream2;
+		this.format2 = format2;
+		this.output3 = outputStream3;
+		this.format3 = format3;
 		if(outputStream == null) {
 			doPrintLog = false;
 		}
@@ -696,12 +726,46 @@ public final class LoggingImpl implements Logging {
 	}
 
 
+	@Override
+	public String toString() {
+		return "{ level: " + this.getLevelValue() + ", out: " + output + (output2 != null ? ", output2: " + output2 : "") + (output3 != null ? ", output3: " + output3 : "") + " }";
+	}
+
+
 	private void output() {
+		output(output, format);
+		if(output2 != null) {
+			output(output2, format2);
+		}
+		if(output3 != null) {
+			output(output3, format3);
+		}
+	}
+
+
+	private void output(PrintStream out, Format format) {
 		if(!doPrintLog) {
 			return;
 		}
-		int index = levels.size()-1;
-		output.printf("%d, [%s] ", levels.get(index).intValue(), classes.get(index).getCanonicalName());
+
+		int index = levels.size() - 1;
+
+		switch(format) {
+		case DATETIME_LEVEL_AND_CLASS:
+			out.printf("[%s] %d, [%s] ", dateFormater.format(Instant.now()), levels.get(index).intValue(), classes.get(index).getCanonicalName());
+			break;
+		case LEVEL:
+			out.printf("%d, ", levels.get(index).intValue());
+			break;
+		case LEVEL_AND_CLASS:
+			out.printf("%d, [%s] ", levels.get(index).intValue(), classes.get(index).getCanonicalName());
+			break;
+		case NONE:
+			break;
+		default:
+			throw new IllegalArgumentException("unknown " + Format.class.getSimpleName() + " enum value '" + format + "'");
+		}
+
 		int startIndex = paramStartIndex.get(index);
 		int paramCount = (index == paramStartIndex.size()-1) ? params.size()-startIndex
 				: paramStartIndex.get(index+1)-startIndex;
@@ -709,12 +773,12 @@ public final class LoggingImpl implements Logging {
 		for(int i = startIndex, a = 0; i < startIndex+paramCount; i++, a++) {
 			args[a] = params.get(i);
 		}
-		output.printf(messages.get(index), args);
+		out.printf(messages.get(index), args);
 		if(errors.get(index) != null) {
-			output.printf(", error: ");
-			errors.get(index).printStackTrace(output);
+			out.printf(", error: ");
+			errors.get(index).printStackTrace(out);
 		}
-		output.println();
+		out.println();
 	}
 
 }

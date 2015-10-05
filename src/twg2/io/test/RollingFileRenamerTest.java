@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import stringUtils.template.SingleIntTemplate;
-import stringUtils.template.StringTemplateBuilder;
 import twg2.io.files.RollingFileRenamer;
+import twg2.text.stringTemplate.SingleIntTemplate;
+import twg2.text.stringTemplate.StringTemplateBuilder;
 import checks.CheckCollections;
 
 /**

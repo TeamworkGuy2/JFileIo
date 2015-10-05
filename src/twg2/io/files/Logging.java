@@ -101,4 +101,14 @@ public interface Logging extends Closeable {
 
 	public void log(Level level, Class<?> clazz, Supplier<String> msg, Throwable thrown);
 
+
+	public static boolean wouldLog(Logging log, Level level) {
+		return log != null && log.wouldLog(level);
+	}
+
+
+	public static boolean wouldLog(LogWrapper log, Level level) {
+		return log != null && log.wouldLog(level);
+	}
+
 }

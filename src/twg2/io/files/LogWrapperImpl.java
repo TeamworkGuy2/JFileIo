@@ -57,12 +57,6 @@ public class LogWrapperImpl implements LogWrapper, Closeable {
 	}
 
 
-	@Override
-	public void setLevel(Level level) {
-		this.level = level.intValue();
-	}
-
-
 	/**
 	 * @return the class that this log wrapper is logging
 	 */

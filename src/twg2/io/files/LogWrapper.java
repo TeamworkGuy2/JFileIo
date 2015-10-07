@@ -27,11 +27,6 @@ public interface LogWrapper {
 	 */
 	public boolean wouldLog(Level level);
 
-	/** Set only the log level for this log wrapper, values greater than the specified log level are saved,
-	 * values less than the specified log level are ignored/dropped.
-	 * @param level the level of logging to set this object to
-	 */
-	public void setLevel(Level level);
 
 	public void log(Level level, String msg);
 

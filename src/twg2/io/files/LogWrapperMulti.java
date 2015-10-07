@@ -81,12 +81,6 @@ public class LogWrapperMulti implements LogWrapper, Closeable {
 
 
 	@Override
-	public void setLevel(Level level) {
-		this.leastLevel = level.intValue();
-	}
-
-
-	@Override
 	public void log(Level level, String msg) {
 		int levelVal = level.intValue();
 		if(levelVal >= this.leastLevel) {

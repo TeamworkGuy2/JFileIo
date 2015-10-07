@@ -35,6 +35,7 @@ public interface Logging extends Closeable {
 	 */
 	public boolean wouldLog(Level level);
 
+
 	public void log(Level level, Class<?> clazz, String msg);
 
 	public void log(Level level, Class<?> clazz, String msg, Throwable thrown);

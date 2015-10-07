@@ -101,16 +101,6 @@ public final class LoggingImpl implements Logging {
 	}
 
 
-	/** Set the current logging level, values greater than the specified log level are saved,
-	 * values less than the specified log level are ignored/dropped.
-	 * @param level the level of logging to set this object to
-	 */
-	public void setLevel(Level level) {
-		this.level = level;
-		this.levelValue = level.intValue();
-	}
-
-
 	@Override
 	public void log(Level level, Class<?> clazz, String msg) {
 		if(level.intValue() >= this.levelValue) {

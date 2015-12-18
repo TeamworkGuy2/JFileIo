@@ -4,11 +4,11 @@ import java.util.logging.Level;
 
 import org.junit.Test;
 
-import twg2.io.files.LogWrapperImpl;
-import twg2.io.files.LogWrapperMulti;
-import twg2.io.files.Logging;
-import twg2.io.files.LoggingImpl;
-import twg2.io.files.LoggingMulti;
+import twg2.io.log.LogWrapperImpl;
+import twg2.io.log.LogWrapperMulti;
+import twg2.io.log.Logging;
+import twg2.io.log.LoggingImpl;
+import twg2.io.log.LoggingMulti;
 
 /**
  * @author TeamworkGuy2

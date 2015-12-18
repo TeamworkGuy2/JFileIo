@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import twg2.io.log.LogWrapperImpl;
+
 /** This class is static. This is an unfortunate side affect of needing to
  * use this class' methods from nearly anywhere in a project.
  * Before calling any methods in the class, call {@link #setProgramMain(Class)} with the

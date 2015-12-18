@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import twg2.io.exec.ExecuteCmd;
 import twg2.io.exec.ProcessIoStreamFactory;
-import twg2.io.files.LoggingImpl;
+import twg2.io.log.LoggingImpl;
 
 /**
  * @author TeamworkGuy2

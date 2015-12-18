@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 
-import twg2.io.files.LogWrapper;
-import twg2.io.files.LogWrapperImpl;
-import twg2.io.files.Logging;
+import twg2.io.log.LogWrapper;
+import twg2.io.log.LogWrapperImpl;
+import twg2.io.log.Logging;
 
 public class ReadInputStream implements Runnable {
 	private LogWrapper log;

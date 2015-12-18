@@ -1,4 +1,4 @@
-package twg2.io.files;
+package twg2.io.log;
 
 import java.util.function.Supplier;
 import java.util.logging.Level;

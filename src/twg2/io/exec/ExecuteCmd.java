@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.util.logging.Level;
 
-import twg2.io.files.Logging;
+import twg2.io.log.Logging;
 
 /** A wrapper for a {@link Process}, with fields for
  * accessing the underlying Process instance, the process start time, and the process result.<br>

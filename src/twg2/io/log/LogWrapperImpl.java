@@ -1,4 +1,4 @@
-package twg2.io.files;
+package twg2.io.log;
 
 import java.io.Closeable;
 import java.io.IOException;

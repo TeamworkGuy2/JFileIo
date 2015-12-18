@@ -92,8 +92,8 @@ public class FileFilterUtil {
 	 */
 	public static final class Builder {
 		private List<Predicate<Path>> filters = new ArrayList<>();
-		private boolean trackMatches;
-		private boolean trackFailedMatches;
+		private boolean trackMatches = true;
+		private boolean trackFailedMatches = false;
 
 
 		public Builder addDirectoryNameFilter(String dirName, boolean allow) {
@@ -145,6 +145,8 @@ public class FileFilterUtil {
 		}
 
 
+		/** Used by {@link Cache}, if true, objects which pass this filter, are added to {@link Cache#getMatches()}. If false, passing objects are not tracked.
+		 */
 		public Builder setTrackMatches(boolean trackMatches) {
 			this.trackMatches = trackMatches;
 			return this;
@@ -156,6 +158,8 @@ public class FileFilterUtil {
 		}
 
 
+		/** Used by {@link Cache}, if true, objects which fail this filter, are added to {@link Cache#getFailedMatches()}. If false, failed objects are not tracked.
+		 */
 		public Builder setTrackFailedMatches(boolean trackFailedMatches) {
 			this.trackFailedMatches = trackFailedMatches;
 			return this;

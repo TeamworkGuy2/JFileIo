@@ -55,7 +55,7 @@ public class RollingFileRenamer<T> {
 				}
 			
 				if(value != null) {
-					// TODO returns falure flag, should handle
+					// TODO could allow failure flag to be returned, should implement
 					data.renameFunc.test(value, nextValue);
 				}
 			}
@@ -63,6 +63,9 @@ public class RollingFileRenamer<T> {
 	}
 
 
+	/**
+	 * @see #of(int, int, SingleIntTemplate, Function, BiPredicate, Function, Predicate)
+	 */
 	public static RollingFileRenamer<Path> ofPath(int startingIndex, int count, SingleIntTemplate fileNameImpl) {
 		Impl<Path> data = new Impl<>(fileNameImpl, (str) -> Paths.get(str), (src, dst) -> {
 			try {
@@ -88,6 +91,9 @@ public class RollingFileRenamer<T> {
 	}
 
 
+	/**
+	 * @see #of(int, int, SingleIntTemplate, Function, BiPredicate, Function, Predicate)
+	 */
 	public static RollingFileRenamer<File> ofFile(int startingIndex, int count, SingleIntTemplate fileNameImpl) {
 		Impl<File> data = new Impl<>(fileNameImpl, (str) -> new File(str), (File src, File dst) -> src.renameTo(dst), (File f) -> f.exists(), (File f) -> f.delete());
 
@@ -99,6 +105,17 @@ public class RollingFileRenamer<T> {
 	}
 
 
+	/**
+	 * NOTE: count + 1 values are saved, since the last/max value is renamed to last/max + 1, not deleted
+	 * @param startingIndex the initial index to start checking and renaming from
+	 * @param count the number of values to count through when renaming (see note above, count + 1 values end up being saved)
+	 * @param fileNameImpl the string template that defines how the file names are formatted and where the numeric 'rolling' portion of the name is
+	 * @param toValue a function that converts a string (i.e. file name) to a value (e.g. {@link File} or {@link Path}
+	 * @param renameFunc a function to rename the first parameter to the second parameter
+	 * @param existsFunc a function to check if a value exists
+	 * @param deleteFunc a function to delete a value
+	 * @return a rolling file renamer that provides an {@link #add()} method to add values to the rolling list of file names
+	 */
 	public static <R> RollingFileRenamer<R> of(int startingIndex, int count, SingleIntTemplate fileNameImpl,
 			Function<String, R> toValue, BiPredicate<R, R> renameFunc, Function<R, Boolean> existsFunc, Predicate<R> deleteFunc) {
 		Impl<R> data = new Impl<>(fileNameImpl, toValue, renameFunc, existsFunc, deleteFunc);

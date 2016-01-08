@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 import org.junit.Assert;
 import org.junit.Test;
 
-import twg2.collections.util.arrayUtils.ArrayUtil;
+import twg2.arrays.ArrayUtil;
 import twg2.io.files.FileReadUtil;
 
 /**

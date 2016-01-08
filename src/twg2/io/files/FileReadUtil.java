@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.Writer;
 
-import twg2.collections.util.arrayUtils.ArrayUtil;
+import twg2.arrays.ArrayUtil;
 
 /** A persistent helper for reading binary/text content from files.
  * Internally cached arrays/buffers are used to reduce garbage. Initial calls make take longer than subsequent calls due to cache initialization.

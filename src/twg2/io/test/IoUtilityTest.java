@@ -6,11 +6,11 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import twg2.collections.tuple.Tuples;
 import twg2.io.files.CharsetUtil;
 import twg2.io.files.FileUtility;
 import twg2.io.files.Locations;
@@ -90,23 +90,23 @@ public final class IoUtilityTest {
 	private static void testClosestString() {
 		@SuppressWarnings("unchecked")
 		Map.Entry<String, String>[] strs = new Map.Entry[] {
-				Tuples.of("$stuff_with", "things with"),
-				Tuples.of("$$identifier", "'secret string'"),
-				Tuples.of("$$id", "42"),
-				Tuples.of("$stuff", "things"),
-				Tuples.of("alphacentauri", "galaxy"),
-				Tuples.of("alpha", ".first"),
-				Tuples.of("Alpha", ".First"),
-				Tuples.of("a. ", "A: "),
-				Tuples.of("al", "-al-"),
-				Tuples.of("A", "A."),
-				Tuples.of("all", "-all-"),
-				Tuples.of("abc", "alphabet"),
-				Tuples.of(" space", "\" \""),
-				Tuples.of(" space ", "\"  \""),
-				Tuples.of("$$a", "\"a\""),
-				Tuples.of("$$b", "\"b\""),
-				Tuples.of("	tab", "'	'")};
+				entry("$stuff_with", "things with"),
+				entry("$$identifier", "'secret string'"),
+				entry("$$id", "42"),
+				entry("$stuff", "things"),
+				entry("alphacentauri", "galaxy"),
+				entry("alpha", ".first"),
+				entry("Alpha", ".First"),
+				entry("a. ", "A: "),
+				entry("al", "-al-"),
+				entry("A", "A."),
+				entry("all", "-all-"),
+				entry("abc", "alphabet"),
+				entry(" space", "\" \""),
+				entry(" space ", "\"  \""),
+				entry("$$a", "\"a\""),
+				entry("$$b", "\"b\""),
+				entry("	tab", "'	'")};
 		String searchString = "al beta $stuff_with other stuff done";
 
 		Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
@@ -121,17 +121,17 @@ public final class IoUtilityTest {
 
 
 		strs = new Map.Entry[] {
-	            Tuples.of("$$filesharePageUrl", "www.website.net"),
-	            Tuples.of("$$fileName", "instructions.txt"),
-	            Tuples.of("$$fileId", "873A2C8F3C91"),
-	            Tuples.of("$$contentType", "text/plain"),
-	            Tuples.of("$$contentLength", "256"),
-	            Tuples.of("$$uploadTime", "23:40"),
-	            Tuples.of("$$deleteTime", "22:32"),
-	            Tuples.of("$$fromAddress", "abc@def.org"),
-	            Tuples.of("$$toAddress", "ghi@jkl.org"),
-	            Tuples.of("$$userEmailSubject", "[subject]"),
-	            Tuples.of("$$userEmailBody", "[body]")
+	            entry("$$filesharePageUrl", "www.website.net"),
+	            entry("$$fileName", "instructions.txt"),
+	            entry("$$fileId", "873A2C8F3C91"),
+	            entry("$$contentType", "text/plain"),
+	            entry("$$contentLength", "256"),
+	            entry("$$uploadTime", "23:40"),
+	            entry("$$deleteTime", "22:32"),
+	            entry("$$fromAddress", "abc@def.org"),
+	            entry("$$toAddress", "ghi@jkl.org"),
+	            entry("$$userEmailSubject", "[subject]"),
+	            entry("$$userEmailBody", "[body]")
 		};
 
 		//Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
@@ -195,6 +195,11 @@ public final class IoUtilityTest {
 				e.printStackTrace();
 			}
 		});
+	}
+
+
+	private static final <K, V> Map.Entry<K, V> entry(K key, V value) {
+		return new AbstractMap.SimpleImmutableEntry(key, value);
 	}
 
 

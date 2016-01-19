@@ -3,6 +3,7 @@ package twg2.io.log;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.time.Instant;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -17,14 +18,32 @@ import java.util.logging.Logger;
 public final class LoggingImpl implements Logging {
 
 	public static enum Format {
-		NONE,
-		LEVEL,
-		LEVEL_AND_CLASS,
-		DATETIME_LEVEL_AND_CLASS;
+		NONE() {
+			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+				// do nothing
+			}
+		},
+		LEVEL() {
+			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+				out.printf("%d, ", level.intValue());
+			}
+		},
+		LEVEL_AND_CLASS() {
+			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+				out.printf("%d, [%s] ", level.intValue(), cls.getCanonicalName());
+			}
+		},
+		DATETIME_LEVEL_AND_CLASS() {
+			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+				out.printf("[%s] %d, [%s] ", dateFormater.format(Instant.now()), level.intValue(), cls.getCanonicalName());
+			}
+		};
+
+		public abstract void printf(PrintStream out, Level level, Class<?> cls);
 	}
 
 
-	private static final DateTimeFormatter dateFormater = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+	private static final DateTimeFormatter dateFormater = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneOffset.UTC);
 	private boolean doPrintLog = true;
 	private PrintStream output;
 	private Format format;
@@ -740,20 +759,8 @@ public final class LoggingImpl implements Logging {
 
 		int index = levels.size() - 1;
 
-		switch(format) {
-		case DATETIME_LEVEL_AND_CLASS:
-			out.printf("[%s] %d, [%s] ", dateFormater.format(Instant.now()), levels.get(index).intValue(), classes.get(index).getCanonicalName());
-			break;
-		case LEVEL:
-			out.printf("%d, ", levels.get(index).intValue());
-			break;
-		case LEVEL_AND_CLASS:
-			out.printf("%d, [%s] ", levels.get(index).intValue(), classes.get(index).getCanonicalName());
-			break;
-		case NONE:
-			break;
-		default:
-			throw new IllegalArgumentException("unknown " + Format.class.getSimpleName() + " enum value '" + format + "'");
+		if(format != null) {
+			format.printf(out, levels.get(index), classes.get(index));
 		}
 
 		int startIndex = paramStartIndex.get(index);

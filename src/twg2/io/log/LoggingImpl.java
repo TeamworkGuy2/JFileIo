@@ -17,40 +17,43 @@ import java.util.logging.Logger;
  */
 public final class LoggingImpl implements Logging {
 
-	public static enum Format {
+
+	public static enum PrefixFormat implements Logging.Formatter {
 		NONE() {
-			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+			@Override public void format(PrintStream out, Level level, Class<?> cls) {
 				// do nothing
 			}
 		},
+
 		LEVEL() {
-			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+			@Override public void format(PrintStream out, Level level, Class<?> cls) {
 				out.printf("%d, ", level.intValue());
 			}
 		},
+
 		LEVEL_AND_CLASS() {
-			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+			@Override public void format(PrintStream out, Level level, Class<?> cls) {
 				out.printf("%d, [%s] ", level.intValue(), cls.getCanonicalName());
 			}
 		},
+
 		DATETIME_LEVEL_AND_CLASS() {
-			@Override public void printf(PrintStream out, Level level, Class<?> cls) {
+			@Override public void format(PrintStream out, Level level, Class<?> cls) {
 				out.printf("[%s] %d, [%s] ", dateFormater.format(Instant.now()), level.intValue(), cls.getCanonicalName());
 			}
 		};
 
-		public abstract void printf(PrintStream out, Level level, Class<?> cls);
 	}
 
 
 	private static final DateTimeFormatter dateFormater = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneOffset.UTC);
 	private boolean doPrintLog = true;
 	private PrintStream output;
-	private Format format;
+	private Logging.Formatter format;
 	private PrintStream output2;
-	private Format format2;
+	private Logging.Formatter format2;
 	private PrintStream output3;
-	private Format format3;
+	private Logging.Formatter format3;
 	private Level level;
 	private int levelValue;
 	private ArrayList<Level> levels;
@@ -65,17 +68,17 @@ public final class LoggingImpl implements Logging {
 	 * @param level the {@link Level} of messages to log
 	 * @param outputStream the output stream to print messages to
 	 */
-	public LoggingImpl(Level level, PrintStream outputStream, Format format) {
+	public LoggingImpl(Level level, PrintStream outputStream, Logging.Formatter format) {
 		this(level, outputStream, format, null, null, null, null);
 	}
 
 
-	public LoggingImpl(Level level, PrintStream outputStream, Format format, PrintStream outputStream2, Format format2) {
+	public LoggingImpl(Level level, PrintStream outputStream, Logging.Formatter format, PrintStream outputStream2, Logging.Formatter format2) {
 		this(level, outputStream, format, outputStream2, format2, null, null);
 	}
 
 
-	public LoggingImpl(Level level, PrintStream outputStream, Format format, PrintStream outputStream2, Format format2, PrintStream outputStream3, Format format3) {
+	public LoggingImpl(Level level, PrintStream outputStream, Logging.Formatter format, PrintStream outputStream2, Logging.Formatter format2, PrintStream outputStream3, Logging.Formatter format3) {
 		this.level = level;
 		this.output = outputStream;
 		this.format = format;
@@ -752,7 +755,7 @@ public final class LoggingImpl implements Logging {
 	}
 
 
-	private void output(PrintStream out, Format format) {
+	private void output(PrintStream out, Logging.Formatter format) {
 		if(!doPrintLog) {
 			return;
 		}
@@ -760,7 +763,7 @@ public final class LoggingImpl implements Logging {
 		int index = levels.size() - 1;
 
 		if(format != null) {
-			format.printf(out, levels.get(index), classes.get(index));
+			format.format(out, levels.get(index), classes.get(index));
 		}
 
 		int startIndex = paramStartIndex.get(index);

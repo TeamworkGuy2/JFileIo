@@ -447,7 +447,7 @@ public final class FileUtility {
 		OutputStream output = null;
 		try {
 			input = new FileInputStream(file);
-			byte[] fileContents = FileReadUtil.defaultInst.readBytes(input);
+			byte[] fileContents = FileReadUtil.defaultInst().readBytes(input);
 			input.close();
 
 			if(fileContents.length < 1) {

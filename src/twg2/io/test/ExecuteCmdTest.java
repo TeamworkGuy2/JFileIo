@@ -25,7 +25,7 @@ public class ExecuteCmdTest {
 
 		System.out.println("running: '" + javaExeHelpCmd + "'");
 
-		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
+		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
 
 		ProcessIoStreamFactory.MemoryStreams streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		try(OutputStream outStream = streamFactory.openOutputStream();

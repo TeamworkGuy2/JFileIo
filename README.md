@@ -1,6 +1,6 @@
 JFileIo
 ==============
-version: 0.1.0
+version: 0.2.0
 
 Various Utilities for easily writing/reading data from files in Java. Includes:
 * Easy builders and utility methods for external process execution (i.e. runtime.exec(...))

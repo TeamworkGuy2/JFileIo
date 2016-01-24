@@ -18,9 +18,12 @@ import twg2.arrays.ArrayUtil;
  */
 public class FileReadUtil {
 	// default instance
-	public static final FileReadUtil defaultInst = new FileReadUtil();
+	private static final FileReadUtil defaultInst = new FileReadUtil();
+	// thread local instance
+	private static final ThreadLocal<FileReadUtil> threadLocalInst = ThreadLocal.withInitial(() -> new FileReadUtil());
 	// 1 MB
 	private static int MAX_CHUNK_SIZE = 1024 * 1024;
+	/** the initial size of the temp buffers */
 	int defaultChunkSize = 8192;
 	/** a single threaded unsafe byte buffer */
 	private byte[] tmpByteBuf;
@@ -245,6 +248,17 @@ public class FileReadUtil {
 	public static char[] combine(char[] ary1, int off1, int len1, char[] ary2, int off2, int len2, int totalReturnLength) {
 		return ArrayUtil.concat(ary1, off1, len1, ary2, off2, len2, 0, totalReturnLength);
 	}
+
+
+	public static FileReadUtil defaultInst() {
+		return defaultInst;
+	}
+
+
+	public static FileReadUtil threadLocalInst() {
+		return threadLocalInst.get();
+	}
+
 
 
 

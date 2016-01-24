@@ -1,6 +1,7 @@
 package twg2.io.log;
 
 import java.io.Closeable;
+import java.io.PrintStream;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 
@@ -10,6 +11,15 @@ import java.util.logging.Level;
  * @see LoggingImpl
  */
 public interface Logging extends Closeable {
+
+	public static interface Formatter {
+
+		public void format(PrintStream out, Level level, Class<?> cls);
+
+	}
+
+
+
 
 	/** Create a log wrapper which forwards calls to this logging instance
 	 * @param type the class type of the class that will be logging information

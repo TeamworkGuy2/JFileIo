@@ -19,8 +19,8 @@ public class LogMultiTest {
 	@Test
 	public void loggingMultiTest() {
 		String pre = "logging - ";
-		LoggingImpl log1 = new LoggingImpl(Level.FINE, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
-		LoggingImpl log2 = new LoggingImpl(Level.INFO, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
+		LoggingImpl log1 = new LoggingImpl(Level.FINE, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
+		LoggingImpl log2 = new LoggingImpl(Level.INFO, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
 
 		LoggingMulti logMulti = new LoggingMulti(new Logging[] { log1, log2 });
 
@@ -33,8 +33,8 @@ public class LogMultiTest {
 	@Test
 	public void logWrapperMultiTest() {
 		String pre = "wrapped - ";
-		LoggingImpl logging1 = new LoggingImpl(Level.FINE, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
-		LoggingImpl logging2 = new LoggingImpl(Level.INFO, System.out, LoggingImpl.Format.LEVEL_AND_CLASS);
+		LoggingImpl logging1 = new LoggingImpl(Level.FINE, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
+		LoggingImpl logging2 = new LoggingImpl(Level.INFO, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
 
 		LogWrapperImpl log1 = new LogWrapperImpl(logging1, String.class);
 		LogWrapperImpl log2 = new LogWrapperImpl(logging2, Number.class);

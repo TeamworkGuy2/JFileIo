@@ -13,25 +13,34 @@ public final class Twg2Logs {
 	private static volatile Twg2Logs defaultInst;
 	private static final Object lock = new Object();
 
-	private Level level;
-	private PrintStream outputStream;
-	private Logging.Formatter format;
+	private final Level level;
+	private final PrintStream outputStream;
+	private final Logging.Formatter format;
+	private final LoggingImpl inst;
 
 
 	public Twg2Logs(Level level, PrintStream outputStream, Formatter format) {
 		this.level = level;
 		this.outputStream = outputStream;
 		this.format = format;
-	}
-
-
-	public Logging createLog() {
-		return new LoggingImpl(level, outputStream, format);
+		this.inst = new LoggingImpl(level, outputStream, format);
 	}
 
 
 	public LogWrapperImpl createLog(Class<?> cls) {
-		return new LogWrapperImpl(createLog(), cls);
+		return new LogWrapperImpl(this.inst, cls);
+	}
+
+
+	public static final boolean tryToInitialize(Level level, PrintStream outputStream, Logging.Formatter format) {
+		synchronized (lock) {
+			if(defaultInst != null) {
+				return false;
+			}
+			Twg2Logs inst = new Twg2Logs(level, outputStream, format);
+			defaultInst = inst;
+			return true;
+		}
 	}
 
 
@@ -41,7 +50,15 @@ public final class Twg2Logs {
 				throw new IllegalStateException("cannot create default instance, initialize() has already been called");
 			}
 			Twg2Logs inst = new Twg2Logs(level, outputStream, format);
+			defaultInst = inst;
 			return inst;
+		}
+	}
+
+
+	public static final boolean isInitialized() {
+		synchronized (lock) {
+			return defaultInst != null;
 		}
 	}
 

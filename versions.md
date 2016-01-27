@@ -1,8 +1,18 @@
 --------
+####0.2.1
+date: 2016-1-27
+
+commit: ?
+
+* Fixed Twg2Logs.defaultInst() not getting set after calling initialize()
+* Twg2Logs.createLog() reuses one underlying log
+
+
+--------
 ####0.2.0
 date: 2016-1-23
 
-commit: ?
+commit: a107373c64820f55a31f3d7350934b49c3f5f9d9
 
 * Changed public FileReadUtil.defaultInst field to FileReadUtil.defaultInst() method.
 * Added thread local FileReadUtil instances via FileReadUtil.threadLocalInst().

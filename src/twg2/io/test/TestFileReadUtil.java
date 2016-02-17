@@ -32,7 +32,7 @@ public class TestFileReadUtil {
 		};
 
 		for(byte[] bts : byteArys) {
-			byte[] bytes = FileReadUtil.defaultInst().readBytes(new ByteArrayInputStream(bts));
+			byte[] bytes = FileReadUtil.threadLocalInst().readBytes(new ByteArrayInputStream(bts));
 
 			Assert.assertArrayEquals(bts, bytes);
 			System.out.println();
@@ -55,7 +55,7 @@ public class TestFileReadUtil {
 		};
 
 		for(String str : strs) {
-			char[] chars = FileReadUtil.defaultInst().readChars(new StringReader(str));
+			char[] chars = FileReadUtil.threadLocalInst().readChars(new StringReader(str));
 
 			Assert.assertEquals(str, new String(chars));
 			System.out.println();
@@ -67,7 +67,7 @@ public class TestFileReadUtil {
 		try {
 			Field field = FileReadUtil.class.getDeclaredField("defaultChunkSize");
 			field.setAccessible(true);
-			field.setInt(FileReadUtil.defaultInst(), size);
+			field.setInt(FileReadUtil.threadLocalInst(), size);
 		} catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
 			throw new RuntimeException("Error setting FileReadUtil.defaultInst.defaultChunkSize to " + size, e);
 		}

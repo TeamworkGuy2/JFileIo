@@ -1,8 +1,19 @@
 --------
+####0.3.0
+date: 2016-2-17
+
+commit: ?
+
+* Moved file/directory recursive traversal from FileUtility to new FileRecursion class
+* Updated FileReadUtil to only use thread local caches to prevent bugs when calling these static methods from multiple threads
+* Removed some unused CharsetUtil methods 
+
+
+--------
 ####0.2.1
 date: 2016-1-27
 
-commit: ?
+commit: 89ef12b3eddcb0e4b230447cfdeab42d9b9abc69
 
 * Fixed Twg2Logs.defaultInst() not getting set after calling initialize()
 * Twg2Logs.createLog() reuses one underlying log

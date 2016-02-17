@@ -1,6 +1,6 @@
 JFileIo
 ==============
-version: 0.2.1
+version: 0.3.0
 
 Various Utilities for easily writing/reading data from files in Java. Includes:
 * Easy builders and utility methods for external process execution (i.e. runtime.exec(...))
@@ -11,3 +11,44 @@ Various Utilities for easily writing/reading data from files in Java. Includes:
 * 'Locations' helpers for discovering the current executing '.class'/'.jar' file location if it is being run independently (i.e. won't work for containers like apache tomcat)
 
 Take a look at the 'twg2.io.test' package for some examples of how the API can be used.
+
+
+--------
+File Filtering/Recursive Loading:
+
+Example - recursively load files filtered by directory and file extension:
+```Java
+public static List<Path> listFiles(Path projectDir, String... validFileExtensions) throws IOException {
+	FileVisitorUtil.Builder visitorBldr = new FileVisitorUtil.Builder();
+	visitorBldr.getPreVisitDirectoryFilter().addDirectoryNameFilters(false, "/bin", "/images/", "/debug", "/tasks", "/dest", "/tests", "/node_modules", "/scripts");
+	visitorBldr.getVisitFileFilter().addFileExtensionFilters(true, validFileExtensions);
+	visitorBldr.getVisitFileFilter().setTrackMatches(true);
+	FileVisitorUtil.Cache visitorCache = visitorBldr.build();
+	FileVisitor<Path> visitor = visitorCache.getFileVisitor();
+
+	Files.walkFileTree(projectDir, visitor);
+
+	return visitorCache.getVisitFileFilterCache().getMatches();
+}
+```
+
+
+--------
+Process Execution:
+
+Example - run a process asynchronously:
+```Java
+public static void runCommand() throws IOException {
+	Runtime runtime = Runtime.getRuntime();
+	Logging log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.PrefixFormat.NONE);
+	ProcessIoStreamFactory streamFactory = new ProcessIoStreamFactory.MemoryStreams();
+	OutputStream outStream = streamFactory.openOutputStream();
+	OutputStream errStream = streamFactory.openErrorOutputStream();
+
+	ExecuteCmd exeCmd = ExecuteCmd.execAsync("...", runtime, outStream, errStream, log);
+
+	// do cool stuff with the resulting output and error streams
+	// or wait for the task to complete and get the result
+	ExecuteCmd.Result result = ExecuteCmd.finishSync(exeCmd);
+}
+```

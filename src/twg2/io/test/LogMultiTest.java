@@ -22,6 +22,7 @@ public class LogMultiTest {
 		LoggingImpl log1 = new LoggingImpl(Level.FINE, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
 		LoggingImpl log2 = new LoggingImpl(Level.INFO, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
 
+		@SuppressWarnings("resource")
 		LoggingMulti logMulti = new LoggingMulti(new Logging[] { log1, log2 });
 
 		logMulti.log(Level.FINER, LogMultiTest.class, "!! " + pre + "shouldn't see");
@@ -39,6 +40,7 @@ public class LogMultiTest {
 		LogWrapperImpl log1 = new LogWrapperImpl(logging1, String.class);
 		LogWrapperImpl log2 = new LogWrapperImpl(logging2, Number.class);
 
+		@SuppressWarnings("resource")
 		LogWrapperMulti logMulti = new LogWrapperMulti(new LogWrapperImpl[] { log1, log2 });
 
 		logMulti.log(Level.FINER, "!! " + pre + "shouldn't see");

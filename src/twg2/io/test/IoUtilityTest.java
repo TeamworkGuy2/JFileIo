@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import twg2.io.files.CharsetUtil;
-import twg2.io.files.FileUtility;
+import twg2.io.files.FileRecursion;
 import twg2.io.files.Locations;
 import twg2.text.stringUtils.StringCompare;
 import twg2.text.stringUtils.StringHex;
@@ -88,8 +88,9 @@ public final class IoUtilityTest {
 
 
 	private static void testClosestString() {
-		@SuppressWarnings("unchecked")
-		Map.Entry<String, String>[] strs = new Map.Entry[] {
+		{
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, String>[] strs = new Map.Entry[] {
 				entry("$stuff_with", "things with"),
 				entry("$$identifier", "'secret string'"),
 				entry("$$id", "42"),
@@ -107,20 +108,22 @@ public final class IoUtilityTest {
 				entry("$$a", "\"a\""),
 				entry("$$b", "\"b\""),
 				entry("	tab", "'	'")};
-		String searchString = "al beta $stuff_with other stuff done";
+			String searchString = "al beta $stuff_with other stuff done";
 
-		Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
+			Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
 
-		System.out.println("Sorted: " + Arrays.toString(strs));
+			System.out.println("Sorted: " + Arrays.toString(strs));
 
-		Map.Entry<String, String> closest = StringCompare.closestMatch(searchString, 0, strs, true);
-		System.out.println("closest: " + closest);
+			Map.Entry<String, String> closest = StringCompare.closestMatch(searchString, 0, strs, true);
+			System.out.println("closest: " + closest);
 
-		String replaced = StringReplace.replaceTokens(searchString, strs, false);
-		System.out.println("replaced: " + replaced);
+			String replaced = StringReplace.replaceTokens(searchString, strs, false);
+			System.out.println("replaced: " + replaced);
+		}
 
-
-		strs = new Map.Entry[] {
+		{
+			@SuppressWarnings("unchecked")
+			Map.Entry<String, String>[] strs = new Map.Entry[] {
 	            entry("$$filesharePageUrl", "www.website.net"),
 	            entry("$$fileName", "instructions.txt"),
 	            entry("$$fileId", "873A2C8F3C91"),
@@ -132,20 +135,21 @@ public final class IoUtilityTest {
 	            entry("$$toAddress", "ghi@jkl.org"),
 	            entry("$$userEmailSubject", "[subject]"),
 	            entry("$$userEmailBody", "[body]")
-		};
+			};
 
-		//Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
+			//Arrays.sort(strs, (e1, e2) -> e1.getKey().compareTo(e2.getKey()));
 
-		searchString = "File $$fileName from $$fromAddress";
-		System.out.println("original: " + searchString);
-		replaced = StringReplace.replaceTokens(searchString, strs, true);
-		System.out.println("replaced: " + replaced);
-		System.out.println("\n");
+			String searchString = "File $$fileName from $$fromAddress";
+			System.out.println("original: " + searchString);
+			String replaced = StringReplace.replaceTokens(searchString, strs, true);
+			System.out.println("replaced: " + replaced);
+			System.out.println("\n");
 
-		searchString = "File located at: <a href=\"$$filesharePageUrl?id=$$fileId\">$$fileId</a><br/>This file is from $$fromAddress to $$toAddress";
-		System.out.println("original: " + searchString);
-		replaced = StringReplace.replaceTokens(searchString, strs, true);
-		System.out.println("replaced: " + replaced);
+			searchString = "File located at: <a href=\"$$filesharePageUrl?id=$$fileId\">$$fileId</a><br/>This file is from $$fromAddress to $$toAddress";
+			System.out.println("original: " + searchString);
+			replaced = StringReplace.replaceTokens(searchString, strs, true);
+			System.out.println("replaced: " + replaced);
+		}
 	}
 
 
@@ -181,7 +185,7 @@ public final class IoUtilityTest {
 		Charset inCharset = Charset.forName("cp1252");
 		Charset outCharset = Charset.forName("UTF-8");
 
-		FileUtility.forEachFileByFolderRecursively(new File(rootFolder), (dir, file) -> {
+		FileRecursion.forEachFileByFolderRecursively(new File(rootFolder), (dir, file) -> {
 			if(!file.getPath().endsWith(".java")) {
 				return;
 			}
@@ -199,7 +203,7 @@ public final class IoUtilityTest {
 
 
 	private static final <K, V> Map.Entry<K, V> entry(K key, V value) {
-		return new AbstractMap.SimpleImmutableEntry(key, value);
+		return new AbstractMap.SimpleImmutableEntry<>(key, value);
 	}
 
 

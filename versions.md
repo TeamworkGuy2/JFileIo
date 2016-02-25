@@ -1,8 +1,17 @@
 --------
-####0.3.0
+####0.4.0
 date: 2016-2-17
 
 commit: ?
+
+* Move twg2.io.log package to separate [JTwg2Logging] (https://github.com/TeamworkGuy2/JTwg2Logging) library
+
+
+--------
+####0.3.0
+date: 2016-2-17
+
+commit: e47f4071f4bb3bf36ee5948e8d73b7b96bbdc1c3
 
 * Moved file/directory recursive traversal from FileUtility to new FileRecursion class
 * Updated FileReadUtil to only use thread local caches to prevent bugs when calling these static methods from multiple threads

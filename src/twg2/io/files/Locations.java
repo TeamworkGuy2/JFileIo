@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import twg2.io.log.LogWrapperImpl;
+import twg2.logging.LogWrapperImpl;
 
 /** This class is static. This is an unfortunate side affect of needing to
  * use this class' methods from nearly anywhere in a project.

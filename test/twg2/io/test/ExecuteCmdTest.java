@@ -10,6 +10,7 @@ import org.junit.Test;
 import twg2.io.exec.ExecuteCmd;
 import twg2.io.exec.ProcessIoStreamFactory;
 import twg2.logging.LoggingImpl;
+import twg2.logging.LoggingPrefixFormat;
 
 /**
  * @author TeamworkGuy2
@@ -25,7 +26,7 @@ public class ExecuteCmdTest {
 
 		System.out.println("running: '" + javaExeHelpCmd + "'");
 
-		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.PrefixFormat.LEVEL_AND_CLASS);
+		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingPrefixFormat.LEVEL_AND_CLASS);
 
 		ProcessIoStreamFactory.MemoryStreams streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		try(OutputStream outStream = streamFactory.openOutputStream();

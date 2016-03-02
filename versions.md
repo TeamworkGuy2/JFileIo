@@ -1,8 +1,19 @@
 --------
-####0.4.0
-date: 2016-2-17
+####0.4.1
+date: 2016-2-27
 
 commit: ?
+
+* Added twg2.io.write utilities for writing serializable objects to an Appendable destination
+* Refactored twg2.io.fileLoading (SourcesFiles and SourceInfo) from JParserTools library into this library
+* Use latest version of JTwg2Logging (LoggingPrefixFormat instead of LoggingImpl.PrefixFormat)
+
+
+--------
+####0.4.0
+date: 2016-2-24
+
+commit: 65a89848376862c2fc3ce12e1e8e011e8166ae9f
 
 * Move twg2.io.log package to separate [JTwg2Logging] (https://github.com/TeamworkGuy2/JTwg2Logging) library
 

@@ -15,7 +15,7 @@ import twg2.io.files.FileReadUtil;
  * @author TeamworkGuy2
  * @since 2015-9-19
  */
-public class TestFileReadUtil {
+public class FileReadUtilTest {
 
 	@Test
 	public void readBytesTest() throws IOException {
@@ -84,8 +84,8 @@ public class TestFileReadUtil {
 
 
 	public static void main(String[] args) throws IOException {
-		new TestFileReadUtil().readBytesTest();
-		new TestFileReadUtil().readCharsTest();
+		new FileReadUtilTest().readBytesTest();
+		new FileReadUtilTest().readCharsTest();
 	}
 
 }

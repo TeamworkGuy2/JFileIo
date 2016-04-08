@@ -199,6 +199,41 @@ public final class FileUtility {
 	}
 
 
+	/** returns a file's extension/type, excluding the extension separator (by default a period '.')
+	 * @param file the file who's extension is to be returned
+	 * @return the file extension as a string or null if the file extension cannot be identified
+	 */
+	public static final String getFileExtension(File file) {
+		return getFileExtension(file.getName());
+	}
+
+
+	public static final String getFileExtension(String filename) {
+		// Get the file type by getting the sub string starting at the last index of '.'
+		int typeIndex = filename.lastIndexOf(".");
+		// If the '.' character could not be found, return false, the file type can not be identified
+		if(typeIndex < 0) {
+			return null;
+		}
+		return filename.length() <= typeIndex + 1 ? "" : filename.substring(typeIndex + 1); // Return the ending substring
+	}
+
+
+	/** remove a file name's extension/type
+	 * @param filename the file who's extension is to be returned
+	 * @return the file extension as a string or null if the file extension cannot be identified
+	 */
+	public static final String removeFileExtension(String filename) {
+		// Get the file type by getting the sub string starting at the last index of '.'
+		int typeIndex = filename.lastIndexOf(".");
+		// If the '.' character could not be found, return false, the file type can not be identified
+		if(typeIndex < 0) {
+			return filename;
+		}
+		return filename.substring(0, typeIndex); // Return the file name substring
+	}
+
+
 	/** Append the specified byte buffer to the end of the specified file
 	 * @param file the file to append the byte buffer to
 	 * @param contents the byte buffer append to the end of the file.

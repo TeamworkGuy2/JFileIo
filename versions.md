@@ -1,8 +1,18 @@
 --------
+####0.4.2
+date: 2016-4-6
+
+commit: ?
+
+* Added FileUtility getFileExtension() and removeFileExtension()
+* Added FileFormatException constructors with fileName argument
+
+
+--------
 ####0.4.1
 date: 2016-2-27
 
-commit: ?
+commit: bef63be56f1f43edaad6f58fb0c484fb7254452c
 
 * Added twg2.io.write utilities for writing serializable objects to an Appendable destination
 * Refactored twg2.io.fileLoading (SourcesFiles and SourceInfo) from JParserTools library into this library

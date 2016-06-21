@@ -1,13 +1,13 @@
 JFileIo
 ==============
-version: 0.4.2
+version: 0.4.3
 
-Various Utilities for easily writing/reading data from files in Java. Includes:
-* Easy builders and utility methods for external process execution (i.e. runtime.exec(...))
-* Filtered FileVisitor builders for building FileVisitors (which can be passed to Files.walkFileTree(...))
-* Rolling file renamer for creating log files
+Utilities for reading/writing data from/to files in Java. Includes:
+* Builders and utility methods for external process execution (i.e. runtime.exec(...))
+* Filtered FileVisitor builders which can be passed to Files.walkFileTree(...)
+* Rolling file renamer for creating log files or file snapshots/backups
 * File reader utility class for reading files using interal cache which is reused between file reads with smart buffer resizing to minimize garbage generated 
-* 'Locations' helpers for discovering the current executing '.class'/'.jar' file location if it is being run independently (i.e. won't work for containers like apache tomcat)
+* 'Locations' helper for discovering the current executing '.class'/'.jar' file location if it is being run independently (i.e. won't work for containers like apache tomcat)
 
 Take a look at the 'twg2.io.test' package for some examples of how the API can be used.
 

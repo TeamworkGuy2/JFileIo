@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 import twg2.collections.tuple.Tuples;
@@ -17,6 +18,10 @@ import twg2.io.files.FileVisitorUtil;
 import twg2.io.write.JsonWrite;
 import twg2.logging.Logging;
 
+/** A container for a group of {@link SourceInfo} instances associated with their paths
+ * @author TeamworkGuy2
+ * @since 2016-2-27
+ */
 //@Immutable
 public class SourceFiles {
 	static String newline = System.lineSeparator();
@@ -24,8 +29,8 @@ public class SourceFiles {
 	private final List<Entry<SourceInfo, List<Path>>> sources;
 
 
-	/** Create a list of source file groups
-	 * @param sources
+	/** Create a list of source file groups.
+	 * @param sources Note: this list is not copied, modify at your own risk.
 	 */
 	public SourceFiles(List<Entry<SourceInfo, List<Path>>> sources) {
 		this.sources = sources;
@@ -37,6 +42,11 @@ public class SourceFiles {
 	}
 
 
+	/** Log all of these source files to a logging instance
+	 * @param log the logging instance to log the information to
+	 * @param level the level of this logging action, the message is only generated if the logging instance will accept it
+	 * @param includeHeader whether to include a short description on the first line
+	 */
 	public void log(Logging log, Level level, boolean includeHeader) {
 		if(Logging.wouldLog(log, level)) {
 			StringBuilder sb = new StringBuilder();
@@ -58,11 +68,22 @@ public class SourceFiles {
 	}
 
 
+	/** Create an instance of this class from a list of {@link SourceInfo} objects and using {@link Paths#get(String, String...) Paths.get(...)}
+	 */
 	public static final SourceFiles load(List<SourceInfo> sourceInfos) throws IOException {
+		return load(sourceInfos, Paths::get);
+	}
+
+
+	/** Create an instance of this class from a list of {@link SourceInfo} objects and a custom path resolver
+	 * @param sourceInfos the source info objects to use
+	 * @param pathResolver convert a {@link SourceInfo#path} to a {@link Path}
+	 */
+	public static final SourceFiles load(List<SourceInfo> sourceInfos, Function<String, Path> pathResolver) throws IOException {
 		List<Entry<SourceInfo, List<Path>>> allFiles = new ArrayList<>();
 
 		for(SourceInfo srcInfo : sourceInfos) {
-			List<Path> fileSet = getFilesByExtension(Paths.get(srcInfo.path), srcInfo.maxRecursiveDepth, srcInfo.validFileExtensions);
+			List<Path> fileSet = getFilesByExtension(pathResolver.apply(srcInfo.path), srcInfo.maxRecursiveDepth, srcInfo.validFileExtensions);
 			allFiles.add(Tuples.of(srcInfo, fileSet));
 		}
 
@@ -70,15 +91,17 @@ public class SourceFiles {
 	}
 
 
+	/** Helper method to extract files matching given file extensions from a directory including child directories down to a certain depth
+	 */
 	public static final List<Path> getFilesByExtension(Path fileOrDir, int depth, String... extensions) throws IOException {
-		FileVisitorUtil.Builder fileFilterBldr = new FileVisitorUtil.Builder();
+		FileVisitorUtil.Builder filterBldr = new FileVisitorUtil.Builder();
 		if(extensions.length > 0) {
-			fileFilterBldr.getVisitFileFilter().addFileExtensionFilters(true, extensions);
+			filterBldr.getVisitFileFilter().addFileExtensionFilters(true, extensions);
 		}
-		fileFilterBldr.getVisitFileFilter().setTrackMatches(true);
-		FileVisitorUtil.Cache fileFilterCache = fileFilterBldr.build();
-		Files.walkFileTree(fileOrDir, EnumSet.noneOf(FileVisitOption.class), depth, fileFilterCache.getFileVisitor());
-		List<Path> files = fileFilterCache.getVisitFileFilterCache().getMatches();
+		filterBldr.getVisitFileFilter().setTrackMatches(true);
+		FileVisitorUtil.Cache filesFiltered = filterBldr.build();
+		Files.walkFileTree(fileOrDir, EnumSet.noneOf(FileVisitOption.class), depth, filesFiltered.getFileVisitor());
+		List<Path> files = filesFiltered.getVisitFileFilterCache().getMatches();
 		return files;
 	}
 

@@ -5,7 +5,8 @@ import java.util.List;
 
 import twg2.text.stringUtils.StringSplit;
 
-/**
+/** A file system filter containing a path, max child directory depth to search, and list of valid file extensions.
+ * Parse from a string using {@link #parseFromArgs(String, String) parseFromArgs(...)}
  * @author TeamworkGuy2
  * @since 2016-1-9
  */
@@ -51,8 +52,15 @@ public class SourceInfo {
 	}
 
 
-	/** Parses an argument string in the format:<br>
-	 * {@code argName='path,[fileExt,fileExt,...];path,[fileExt,fileExt,...];...'}
+	/** Parses a string into a {@link SourceInfo} object using any of the following string formats:<br>
+	 * {@code 'path=depth,[fileExt,fileExt,...]'}<br>
+	 * {@code 'path=depth'}<br>
+	 * {@code 'path'}<br>
+	 * Note: the brackets around '[fileExt]' are literal.<br>
+	 * Examples:<br>
+	 * {@code '../app/src/widgets=3,[java,cs,stg]'}<br>
+	 * {@code 'src/images/=1'}<br>
+	 * {@code '../resources'}
 	 * @param str the arguments string to parse
 	 * @param argName the name of the argument
 	 * @return {@link SourceInfo} parsed from the arguments string

@@ -2,8 +2,25 @@
 All notable changes to this project will be documented in this file.
 This project does its best to adhere to [Semantic Versioning](http://semver.org/).
 
+
 --------
-###[0.4.3](N/A) - 2016-06-21
+###[0.5.0](N/A) - 2016-06-26
+####Added
+* FileUtil.getFileNameWithoutExtension()
+
+####Changed
+* Renamed FileUtility -> FileUtil
+* Renamed FileUtil methods:
+  * toURL() -> toUrl()
+  * removeFileExtension() -> getFileWithoutExtension()
+* Added JCollectionInterfaces dependency and updated JCollectionFiller dependency to latest 0.5.x version
+
+####Fixed
+* FileUtil getFileExtension(String), getFileWithoutExtension(String), getFileNameWithoutExtension(String) methods so that they handle paths correctly, not just file names
+
+
+--------
+###[0.4.3](https://github.com/TeamworkGuy2/JFileIo/commit/0dec5e2cac40ab32d010e4dd2b79af0c02c81000) - 2016-06-21
 ####Added
 * Additional twg2.io.fileLoading documentation
 * compiled jar file to bin/

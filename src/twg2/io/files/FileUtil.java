@@ -28,14 +28,14 @@ import java.util.List;
  * @author TeamworkGuy2
  * @since 2014-1-1
  */
-public final class FileUtility {
+public final class FileUtil {
 	private static final String fileProtocolPrefix = "file:///";
 	//private static final String fileProtocolName = "file";
 	// 1 GB
 	private static final long MAX_FILE_SIZE = 1073741824;
 
 
-	private FileUtility() { throw new AssertionError("cannot instantiate static class FileUtility"); }
+	private FileUtil() { throw new AssertionError("cannot instantiate static class FileUtility"); }
 
 
 	/** Overwrite the destination file with the source file
@@ -87,7 +87,7 @@ public final class FileUtility {
 	 * @return the URL corresponding to the specified file/folder path
 	 * @throws IOException if there is an error creating the URL
 	 */
-	public static final URL toURL(final String path) throws IOException {
+	public static final URL toUrl(final String path) throws IOException {
 		URL url = null;
 		if(path.startsWith(fileProtocolPrefix)) {
 			url = new URL(path);
@@ -200,7 +200,7 @@ public final class FileUtility {
 
 
 	/** returns a file's extension/type, excluding the extension separator (by default a period '.')
-	 * @param file the file who's extension is to be returned
+	 * @param file the file name with extension
 	 * @return the file extension as a string or null if the file extension cannot be identified
 	 */
 	public static final String getFileExtension(File file) {
@@ -208,29 +208,80 @@ public final class FileUtility {
 	}
 
 
-	public static final String getFileExtension(String filename) {
+	/** returns a file's extension/type, excluding the extension separator (by default a period '.')
+	 * @param filepath the file name with extension
+	 * @return the file extension as a string or empty string if the file extension cannot be identified
+	 */
+	public static final String getFileExtension(String filepath) {
 		// Get the file type by getting the sub string starting at the last index of '.'
-		int typeIndex = filename.lastIndexOf(".");
-		// If the '.' character could not be found, return false, the file type can not be identified
-		if(typeIndex < 0) {
-			return null;
+		int dotIdx = -1;
+		int separatorIdx = -1;
+		int fileLen = filepath.length();
+		for(int i = fileLen - 1; i > -1; i--) {
+			char ch = filepath.charAt(i);
+			// last '.' dot index
+			if(dotIdx < 0 && ch == '.') { dotIdx = i; }
+			// break on last separator
+			if(ch == '/' || ch == '\\') { separatorIdx = i; break; }
 		}
-		return filename.length() <= typeIndex + 1 ? "" : filename.substring(typeIndex + 1); // Return the ending substring
+
+		return fileLen <= dotIdx + 1 || dotIdx < separatorIdx ? "" : filepath.substring(dotIdx + 1); // Return the ending substring
 	}
 
 
-	/** remove a file name's extension/type
-	 * @param filename the file who's extension is to be returned
-	 * @return the file extension as a string or null if the file extension cannot be identified
+	/** returns a file's name excluding the extension (by default file name extension separator is a period '.')
+	 * @param file the file path
+	 * @return the file name as a string
 	 */
-	public static final String removeFileExtension(String filename) {
+	public static final String getFileNameWithoutExtension(File file) {
+		return getFileExtension(file.getName());
+	}
+
+
+	/** returns a file's name at the end of a file path excluding the extension (by default file name extension separator is a period '.')
+	 * @param filepath the file path
+	 * @return the file name as a string
+	 */
+	public static final String getFileNameWithoutExtension(String filepath) {
 		// Get the file type by getting the sub string starting at the last index of '.'
-		int typeIndex = filename.lastIndexOf(".");
-		// If the '.' character could not be found, return false, the file type can not be identified
-		if(typeIndex < 0) {
-			return filename;
+		int dotIdx = -1;
+		int separatorIdx = -1;
+		int fileLen = filepath.length();
+		for(int i = fileLen - 1; i > -1; i--) {
+			char ch = filepath.charAt(i);
+			// last '.' dot index
+			if(dotIdx < 0 && ch == '.') { dotIdx = i; }
+			// break on last separator
+			if(ch == '/' || ch == '\\') { separatorIdx = i; break; }
 		}
-		return filename.substring(0, typeIndex); // Return the file name substring
+
+		return filepath.substring(separatorIdx > -1 ? separatorIdx + 1 : 0, dotIdx > -1 ? dotIdx : fileLen);
+	}
+
+
+	/** return a file path without extension/type
+	 * @param filepath the file path
+	 * @return the file path without extension
+	 */
+	public static final String getFileWithoutExtension(String filepath) {
+		// Get the file type by getting the sub string starting at the last index of '.'
+		int dotIdx = -1;
+		int separatorIdx = -1;
+		int fileLen = filepath.length();
+		for(int i = fileLen - 1; i > -1; i--) {
+			char ch = filepath.charAt(i);
+			// last '.' dot index
+			if(dotIdx < 0 && ch == '.') { dotIdx = i; }
+			// break on last separator
+			if(ch == '/' || ch == '\\') { separatorIdx = i; break; }
+		}
+
+		// If the '.' character could not be found, return false, the file type can not be identified
+		if(dotIdx < 0) {
+			return filepath;
+		}
+
+		return filepath.substring(0, dotIdx < separatorIdx ? fileLen : dotIdx);
 	}
 
 

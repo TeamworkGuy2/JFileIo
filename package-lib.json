@@ -1,5 +1,5 @@
 {
-	"version" : "0.4.3",
+	"version" : "0.5.0",
 	"name" : "jfile-io",
 	"description" : "Java Helpers for File I/O: filtered FileVisitor builders, rolling file renamer, cached buffer file reader, and other File/Path helpers to make Java I/O easier",
 	"homepage" : "https://github.com/TeamworkGuy2/JFileIo",

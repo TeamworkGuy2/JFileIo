@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.6.0](N/A) - 2016-08-07
+###[0.6.1](N/A) - 2016-08-07
+####Added
+* twg2.io.fileLoading.ValidInvalid
+
+
+--------
+###[0.6.0](https://github.com/TeamworkGuy2/JFileIo/commit/3278593274cd92de0586a7a92623d041a4a9600c) - 2016-08-07
 ####Added
 * FileFilterUtil
   * standardizePathName() for file separator standardization
@@ -58,13 +64,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-####[0.4.0](https://github.com/TeamworkGuy2/JFileIo/commit/65a89848376862c2fc3ce12e1e8e011e8166ae9f) - 2016-02-24
+###[0.4.0](https://github.com/TeamworkGuy2/JFileIo/commit/65a89848376862c2fc3ce12e1e8e011e8166ae9f) - 2016-02-24
 ####Changed
 * Move twg2.io.log package to separate [JTwg2Logging] (https://github.com/TeamworkGuy2/JTwg2Logging) library
 
 
 --------
-####[0.3.0](https://github.com/TeamworkGuy2/JFileIo/commit/e47f4071f4bb3bf36ee5948e8d73b7b96bbdc1c3) - 2016-02-17
+###[0.3.0](https://github.com/TeamworkGuy2/JFileIo/commit/e47f4071f4bb3bf36ee5948e8d73b7b96bbdc1c3) - 2016-02-17
 ####Changed
 * Moved file/directory recursive traversal from FileUtility to new FileRecursion class
 * Updated FileReadUtil to only use thread local caches to prevent bugs when calling these static methods from multiple threads
@@ -74,7 +80,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-####[0.2.1](https://github.com/TeamworkGuy2/JFileIo/commit/89ef12b3eddcb0e4b230447cfdeab42d9b9abc69) - 2016-01-27
+###[0.2.1](https://github.com/TeamworkGuy2/JFileIo/commit/89ef12b3eddcb0e4b230447cfdeab42d9b9abc69) - 2016-01-27
 ####Changed
 * Twg2Logs.createLog() reuses one underlying log
 
@@ -83,7 +89,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-####[0.2.0](https://github.com/TeamworkGuy2/JFileIo/commit/a107373c64820f55a31f3d7350934b49c3f5f9d9) - 2016-01-23
+###[0.2.0](https://github.com/TeamworkGuy2/JFileIo/commit/a107373c64820f55a31f3d7350934b49c3f5f9d9) - 2016-01-23
 ####Added
 * Added thread local FileReadUtil instances via FileReadUtil.threadLocalInst().
 * Added Twg2Logs class with singleton like static methods for initializing a single logging instance for use across an application.
@@ -94,7 +100,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-####[0.1.0](https://github.com/TeamworkGuy2/JFileIo/commit/6c1a6738feea81c5d753ce4fc132610a28aa82fa) - 2016-01-19
+###[0.1.0](https://github.com/TeamworkGuy2/JFileIo/commit/6c1a6738feea81c5d753ce4fc132610a28aa82fa) - 2016-01-19
 ####Added
 * Initial versioning, includes process execution utilities (twg2.io.exec), simple logging (twg2.io.log), general I/O utilities, file filters, a rolling file renamer, and some other miscellaneous utilities (twg.io.files).
 * Removed unused dependency on JSimpleTypes

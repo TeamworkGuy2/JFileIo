@@ -8,13 +8,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 
-import twg2.text.stringUtils.StringCompare;
+import twg2.text.stringSearch.StringCompare;
 
 /**
  * @author TeamworkGuy2
  * @since 2015-9-19
  */
 public class FileFilterUtil {
+
+
+	/** Replace filesystem specific separators in a string with the current {@link File#separatorChar}
+	 */
+	public static String standardizePathName(String path) {
+		return path.replace('\\', File.separatorChar).replace('/', File.separatorChar);
+	}
+
+
 
 
 	/** A compound {@link FileFilter} that also supports tracking matches and failed matches from
@@ -94,6 +103,12 @@ public class FileFilterUtil {
 		private List<Predicate<Path>> filters = new ArrayList<>();
 		private boolean trackMatches = true;
 		private boolean trackFailedMatches = false;
+
+
+		public Builder addFilter(Predicate<Path> filter) {
+			this.filters.add(filter);
+			return this;
+		}
 
 
 		public Builder addDirectoryNameFilter(String dirName, boolean allow) {

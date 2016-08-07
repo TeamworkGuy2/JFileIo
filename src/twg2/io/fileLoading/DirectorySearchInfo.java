@@ -10,7 +10,7 @@ import twg2.text.stringUtils.StringSplit;
  * @author TeamworkGuy2
  * @since 2016-1-9
  */
-public class SourceInfo {
+public class DirectorySearchInfo {
 	private static int DEFAULT_MAX_RECURSIVE_DEPTH = 20;
 	String path;
 	int maxRecursiveDepth;
@@ -23,7 +23,7 @@ public class SourceInfo {
 	 * @param maxRecursiveDepth
 	 * @param validFileExtensions
 	 */
-	public SourceInfo(String path, int maxRecursiveDepth, List<String> validFileExtensions) {
+	public DirectorySearchInfo(String path, int maxRecursiveDepth, List<String> validFileExtensions) {
 		this.path = path;
 		this.maxRecursiveDepth = maxRecursiveDepth;
 		this.validFileExtensions = validFileExtensions.toArray(new String[validFileExtensions.size()]);
@@ -52,7 +52,7 @@ public class SourceInfo {
 	}
 
 
-	/** Parses a string into a {@link SourceInfo} object using any of the following string formats:<br>
+	/** Parses a string into a {@link DirectorySearchInfo} object using any of the following string formats:<br>
 	 * {@code 'path=depth,[fileExt,fileExt,...]'}<br>
 	 * {@code 'path=depth'}<br>
 	 * {@code 'path'}<br>
@@ -63,9 +63,9 @@ public class SourceInfo {
 	 * {@code '../resources'}
 	 * @param str the arguments string to parse
 	 * @param argName the name of the argument
-	 * @return {@link SourceInfo} parsed from the arguments string
+	 * @return {@link DirectorySearchInfo} parsed from the arguments string
 	 */
-	public static final SourceInfo parseFromArgs(String str, String argName) {
+	public static final DirectorySearchInfo parseFromArgs(String str, String argName) {
 		String[] values = StringSplit.split(str, "=", 2);
 
 		if(values[0] == null) {
@@ -95,7 +95,7 @@ public class SourceInfo {
 			}
 		}
 
-		SourceInfo srcInfo = new SourceInfo(path, maxRecursiveDepth, validFileExtensions);
+		DirectorySearchInfo srcInfo = new DirectorySearchInfo(path, maxRecursiveDepth, validFileExtensions);
 
 		return srcInfo;
 	}

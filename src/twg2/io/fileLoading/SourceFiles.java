@@ -18,7 +18,7 @@ import twg2.io.files.FileVisitorUtil;
 import twg2.io.write.JsonWrite;
 import twg2.logging.Logging;
 
-/** A container for a group of {@link SourceInfo} instances associated with their paths
+/** A container for a group of {@link DirectorySearchInfo} instances associated with their paths
  * @author TeamworkGuy2
  * @since 2016-2-27
  */
@@ -26,18 +26,18 @@ import twg2.logging.Logging;
 public class SourceFiles {
 	static String newline = System.lineSeparator();
 
-	private final List<Entry<SourceInfo, List<Path>>> sources;
+	private final List<Entry<DirectorySearchInfo, List<Path>>> sources;
 
 
 	/** Create a list of source file groups.
 	 * @param sources Note: this list is not copied, modify at your own risk.
 	 */
-	public SourceFiles(List<Entry<SourceInfo, List<Path>>> sources) {
+	public SourceFiles(List<Entry<DirectorySearchInfo, List<Path>>> sources) {
 		this.sources = sources;
 	}
 
 
-	public List<Entry<SourceInfo, List<Path>>> getSources() {
+	public List<Entry<DirectorySearchInfo, List<Path>>> getSources() {
 		return sources;
 	}
 
@@ -55,7 +55,7 @@ public class SourceFiles {
 				sb.append("files by source:");
 				sb.append(newline);
 			}
-			for(Entry<SourceInfo, List<Path>> src : sources) {
+			for(Entry<DirectorySearchInfo, List<Path>> src : sources) {
 				sb.append(newline);
 				sb.append(src.getKey());
 				sb.append(newline);
@@ -68,21 +68,21 @@ public class SourceFiles {
 	}
 
 
-	/** Create an instance of this class from a list of {@link SourceInfo} objects and using {@link Paths#get(String, String...) Paths.get(...)}
+	/** Create an instance of this class from a list of {@link DirectorySearchInfo} objects and using {@link Paths#get(String, String...) Paths.get(...)}
 	 */
-	public static final SourceFiles load(List<SourceInfo> sourceInfos) throws IOException {
-		return load(sourceInfos, Paths::get);
+	public static final SourceFiles load(List<DirectorySearchInfo> directorySearchInfos) throws IOException {
+		return load(directorySearchInfos, Paths::get);
 	}
 
 
-	/** Create an instance of this class from a list of {@link SourceInfo} objects and a custom path resolver
-	 * @param sourceInfos the source info objects to use
-	 * @param pathResolver convert a {@link SourceInfo#path} to a {@link Path}
+	/** Create an instance of this class from a list of {@link DirectorySearchInfo} objects and a custom path resolver
+	 * @param directorySearchInfos the source info objects to use
+	 * @param pathResolver convert a {@link DirectorySearchInfo#path} to a {@link Path}
 	 */
-	public static final SourceFiles load(List<SourceInfo> sourceInfos, Function<String, Path> pathResolver) throws IOException {
-		List<Entry<SourceInfo, List<Path>>> allFiles = new ArrayList<>();
+	public static final SourceFiles load(List<DirectorySearchInfo> directorySearchInfos, Function<String, Path> pathResolver) throws IOException {
+		List<Entry<DirectorySearchInfo, List<Path>>> allFiles = new ArrayList<>();
 
-		for(SourceInfo srcInfo : sourceInfos) {
+		for(DirectorySearchInfo srcInfo : directorySearchInfos) {
 			List<Path> fileSet = getFilesByExtension(pathResolver.apply(srcInfo.path), srcInfo.maxRecursiveDepth, srcInfo.validFileExtensions);
 			allFiles.add(Tuples.of(srcInfo, fileSet));
 		}
@@ -99,9 +99,9 @@ public class SourceFiles {
 			filterBldr.getVisitFileFilter().addFileExtensionFilters(true, extensions);
 		}
 		filterBldr.getVisitFileFilter().setTrackMatches(true);
-		FileVisitorUtil.Cache filesFiltered = filterBldr.build();
-		Files.walkFileTree(fileOrDir, EnumSet.noneOf(FileVisitOption.class), depth, filesFiltered.getFileVisitor());
-		List<Path> files = filesFiltered.getVisitFileFilterCache().getMatches();
+		FileVisitorUtil.Cache fileFilter = filterBldr.build();
+		Files.walkFileTree(fileOrDir, EnumSet.noneOf(FileVisitOption.class), depth, fileFilter.getFileVisitor());
+		List<Path> files = fileFilter.getVisitFileFilterCache().getMatches();
 		return files;
 	}
 

@@ -14,7 +14,7 @@ import java.util.Map;
 import twg2.io.files.CharsetUtil;
 import twg2.io.files.FileRecursion;
 import twg2.io.files.Locations;
-import twg2.text.stringUtils.StringCompare;
+import twg2.text.stringSearch.StringCompare;
 import twg2.text.stringUtils.StringHex;
 import twg2.text.stringUtils.StringReplace;
 

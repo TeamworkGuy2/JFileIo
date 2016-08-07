@@ -4,7 +4,18 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.5.0](N/A) - 2016-06-26
+###[0.6.0](N/A) - 2016-08-07
+####Added
+* FileFilterUtil
+  * standardizePathName() for file separator standardization
+  * Builder.addFilter() for adding custom filters (previous add*() options were limited to certain string filters such as addFileExtensionFilter())
+
+####Changed
+* Renamed SourceInfo -> DirectorySearchInfo
+
+
+--------
+###[0.5.0](https://github.com/TeamworkGuy2/JFileIo/commit/add649122931b516bb946e5a86f796083ef9665f) - 2016-06-26
 ####Added
 * FileUtil.getFileNameWithoutExtension()
 

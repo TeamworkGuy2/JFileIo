@@ -55,8 +55,8 @@ public final class ExecuteCmd {
 
 
 
-	ReadInputStream inputReader = null;
-	ReadInputStream errorReader = null;
+	volatile ReadInputStream inputReader = null;
+	volatile ReadInputStream errorReader = null;
 	Process process = null;
 	boolean startedSuccess = false;
 	volatile Result completedResult;
@@ -65,6 +65,16 @@ public final class ExecuteCmd {
 
 	public Process getProcess() {
 		return process;
+	}
+
+
+	public ReadInputStream getInputReader() {
+		return this.inputReader;
+	}
+
+
+	public ReadInputStream getErrorReader() {
+		return this.errorReader;
 	}
 
 

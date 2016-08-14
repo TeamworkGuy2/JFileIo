@@ -4,7 +4,16 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.6.1](N/A) - 2016-08-07
+###[0.6.2](N/A) - 2016-08-13
+####Added
+* ExecuteCmd getInputReader() and getErrorReader() and marked the input and error reader fields volatile
+
+####Changed
+* compiled jar file path from package-lib.json now matches where it's stored (in the /bin/ directory)
+
+
+--------
+###[0.6.1](https://github.com/TeamworkGuy2/JFileIo/commit/f3856c35f0e68d6efadcd14caabb9f476497dcdc) - 2016-08-07
 ####Added
 * twg2.io.fileLoading.ValidInvalid
 

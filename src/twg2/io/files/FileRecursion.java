@@ -1,6 +1,9 @@
 package twg2.io.files;
 
 import java.io.File;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-/**
+/** For the pre Java 1.7 days, most of this is obsolete now with {@link FileVisitor} and {@link Files#walkFileTree(Path, FileVisitor)}
  * @author TeamworkGuy2
  * @since 2014-1-1
  */

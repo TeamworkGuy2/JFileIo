@@ -4,7 +4,14 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.6.2](N/A) - 2016-08-13
+###[0.6.3](N/A) - 2016-08-18
+####Added
+* Matches interface with getMatches() and getFailedMatches() (implemented by FileFilterUtil.Cache)
+* Additional comments/documentation
+
+
+--------
+###[0.6.2](https://github.com/TeamworkGuy2/JFileIo/commit/4682a1fd40d7b3364aea8f21742f5848ba52fbab) - 2016-08-14
 ####Added
 * ExecuteCmd getInputReader() and getErrorReader() and marked the input and error reader fields volatile
 

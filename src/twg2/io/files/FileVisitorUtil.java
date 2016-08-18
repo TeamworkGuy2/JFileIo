@@ -8,7 +8,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-/**
+/** Contains {@link Cache} and {@link Builder} helpers for creating {@link FileVisitor} and {@link FileFilterUtil.Cache} instances
  * @author TeamworkGuy2
  * @since 2015-9-19
  */
@@ -129,6 +129,10 @@ public final class FileVisitorUtil {
 
 
 		// ==== build ====
+		/**
+		 * @return a container containing a {@link FileVisitor} and other filters and caches created from this builder's parameters,
+		 * used for filtering and tracking visited directories and files
+		 */
 		public FileVisitorUtil.Cache build() {
 			FileFilterUtil.Cache preDirFilterCache = preVisitDirFilterBldr != null ? preVisitDirFilterBldr.buildOrNullIfNoFilters() : null;
 			Predicate<Path> preDirFilter = preDirFilterCache != null ? preDirFilterCache.getFileFilter() : null;
@@ -149,6 +153,8 @@ public final class FileVisitorUtil {
 		}
 
 
+		/** Creates a file visitor which uses a {@link Predicate} to determine whether to {@link FileVisitResult#CONTINUE} or {@link FileVisitResult#SKIP_SUBTREE}
+		 */
 		FileVisitor<Path> buildWithDefaultFileVisitResult(Predicate<Path> preDirFilter, Predicate<Path> fileFilter) {
 			return new FileVisitor<Path>() {
 				@Override
@@ -181,6 +187,8 @@ public final class FileVisitorUtil {
 		}
 
 
+		/** Creates a file visitor which calls optional preVisit, visit, visitFailed, and postVisit functions at each step of the file visit process
+		 */
 		FileVisitor<Path> buildWithFuncs(Predicate<Path> preDirFilter, Predicate<Path> fileFilter) {
 			return new FileVisitor<Path>() {
 				@Override
@@ -224,9 +232,10 @@ public final class FileVisitorUtil {
 		/** @return a {@link FileVisitor} failure function which always returns {@link FileVisitResult#CONTINUE}
 		 */
 		public static BiFunction<Path, IOException, FileVisitResult> createVisitFailedContinueFunc() {
-			return (file, exc) -> FileVisitResult.CONTINUE;
+			return (file, err) -> FileVisitResult.CONTINUE;
 		}
 
 	}
+
 
 }

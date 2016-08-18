@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import twg2.text.stringSearch.StringCompare;
 
-/**
+/** Contains {@link Cache} and {@link Builder} helpers for filtering files and directories
  * @author TeamworkGuy2
  * @since 2015-9-19
  */
@@ -29,7 +29,7 @@ public class FileFilterUtil {
 	/** A compound {@link FileFilter} that also supports tracking matches and failed matches from
 	 * each call to its {@link #getFileFilter() filter}
 	 */
-	public static final class Cache {
+	public static final class Cache implements Matches<Path> {
 		private Predicate<Path>[] filters;
 		private Predicate<Path> compoundFilter;
 		private List<Path> matches;
@@ -84,16 +84,19 @@ public class FileFilterUtil {
 		}
 
 
+		@Override
 		public List<Path> getMatches() {
 			return matches;
 		}
 
 
+		@Override
 		public List<Path> getFailedMatches() {
 			return failedMatches;
 		}
 
 	}
+
 
 
 
@@ -201,5 +204,6 @@ public class FileFilterUtil {
 		}
 
 	}
+
 
 }

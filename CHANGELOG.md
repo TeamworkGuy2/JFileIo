@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.6.3](N/A) - 2016-08-18
+###[0.6.4](N/A) - 2016-08-21
+####Changed
+* Updated jcollection-util dependency to latest 0.7.0 version
+
+
+--------
+###[0.6.3](https://github.com/TeamworkGuy2/JFileIo/commit/5f3c0d03e6e603a65e85c9377ffc6b93fc2b6b0e) - 2016-08-18
 ####Added
 * Matches interface with getMatches() and getFailedMatches() (implemented by FileFilterUtil.Cache)
 * Additional comments/documentation

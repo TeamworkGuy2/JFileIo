@@ -5,15 +5,16 @@ import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.logging.Level;
 
-import twg2.collections.tuple.Tuples;
 import twg2.io.files.FileVisitorUtil;
 import twg2.io.write.JsonWrite;
 import twg2.logging.Logging;
@@ -84,7 +85,7 @@ public class SourceFiles {
 
 		for(DirectorySearchInfo srcInfo : directorySearchInfos) {
 			List<Path> fileSet = getFilesByExtension(pathResolver.apply(srcInfo.path), srcInfo.maxRecursiveDepth, srcInfo.validFileExtensions);
-			allFiles.add(Tuples.of(srcInfo, fileSet));
+			allFiles.add(entry(srcInfo, fileSet));
 		}
 
 		return new SourceFiles(Collections.unmodifiableList(allFiles));
@@ -105,4 +106,8 @@ public class SourceFiles {
 		return files;
 	}
 
+
+	private static <K, V> Map.Entry<K, V> entry(K key, V value) {
+		return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
+	}
 }

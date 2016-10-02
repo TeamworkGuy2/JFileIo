@@ -1,14 +1,15 @@
 {
-	"version" : "0.6.4",
+	"version" : "0.7.0",
 	"name" : "jfile-io",
 	"description" : "Java Helpers for File I/O: filtered FileVisitor builders, rolling file renamer, cached buffer file reader, and other File/Path helpers to make Java I/O easier",
 	"homepage" : "https://github.com/TeamworkGuy2/JFileIo",
 	"license" : "MIT",
 	"main" : "./bin/jfile_io.jar",
 	"dependencies" : {
-		"jarray-util" : "*",
+		"jarrays" : "*",
 		"jcollection-util" : "*",
 		"jfunc" : "*",
+		"json-stringify" : "*",
 		"jtext-template" : "*",
 		"jtext-util" : "*",
 		"jtwg2-logging" : "*"

@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.logging.Level;
 
 import twg2.io.files.FileVisitorUtil;
-import twg2.io.write.JsonWrite;
+import twg2.io.json.stringify.JsonStringify;
 import twg2.logging.Logging;
 
 /** A container for a group of {@link DirectorySearchInfo} instances associated with their paths
@@ -60,7 +60,7 @@ public class SourceFiles {
 				sb.append(newline);
 				sb.append(src.getKey());
 				sb.append(newline);
-				JsonWrite.joinStr(src.getValue(), newline, sb, (f) -> f.toString());
+				JsonStringify.joinEscape(src.getValue(), newline, sb, (f) -> f.toString());
 				sb.append(newline);
 			}
 

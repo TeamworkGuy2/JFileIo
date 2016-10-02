@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TestChecks"/>
-	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jarray-util/bin/jarray_util.jar" sourcepath="/JArrayUtil"/>
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jarrays/bin/jarrays.jar" sourcepath="/JArrays"/>
 	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jcollection-interfaces/bin/jcollection_interfaces.jar" sourcepath="/JCollectionInterfaces"/>
-	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jcollection-util/bin/jcollection_util.jar" sourcepath="/JCollectionUtility"/>
+	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jcollection-util/bin/jcollection_util.jar" sourcepath="/JCollectionUtil"/>
 	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jfunc/bin/jfunc.jar" sourcepath="/JFunc"/>
-	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jsimple-types/bin/jsimple_types.jar" sourcepath="/JSimpleTypes/src"/>
-	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jtext-template/bin/jtext_template.jar"/>
+	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jsimple-types/bin/jsimple_types.jar" sourcepath="/JSimpleTypes"/>
+	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/json-stringify/bin/json_stringify.jar" sourcepath="/JsonStringify"/>
+	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jtext-template/bin/jtext_template.jar" sourcepath="/JTextTemplate"/>
 	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jtext-util/bin/jtext_util.jar" sourcepath="/JTextUtil"/>
 	<classpathentry kind="lib" path="C:/Users/TeamworkGuy2/Documents/Java/Libraries/jtwg2-logging/bin/jtwg2_logging.jar" sourcepath="/JTwg2Logging"/>
-	<classpathentry kind="output" path="bin"/>
 </classpath>

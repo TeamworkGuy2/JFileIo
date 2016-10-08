@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.7.0](N/A) - 2016-10-01
+###[0.7.1](N/A) - 2016-10-08
+#### Changed
+* Updated dependency json-stringify to 0.2.0 latest version (use new instance based JsonStringify class)
+
+
+--------
+###[0.7.0](https://github.com/TeamworkGuy2/JFileIo/commit/b3bd7bcb3014eaf0b6cc3c55d40a4409a525c1ca) - 2016-10-01
 #### Added
 * Added json-stringify dependency (since JsonWrite was moved from this project to json-stringify)
 

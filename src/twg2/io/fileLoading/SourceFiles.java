@@ -60,7 +60,7 @@ public class SourceFiles {
 				sb.append(newline);
 				sb.append(src.getKey());
 				sb.append(newline);
-				JsonStringify.joinEscape(src.getValue(), newline, sb, (f) -> f.toString());
+				JsonStringify.inst.joinEscape(src.getValue(), newline, sb, (f) -> f.toString());
 				sb.append(newline);
 			}
 

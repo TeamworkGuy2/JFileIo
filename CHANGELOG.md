@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-###[0.7.1](N/A) - 2016-10-08
+###[0.8.0](N/A) - 2017-05-28
+#### Removed
+* Moved/removed Locations class to new JLoadApp library
+
+
+--------
+###[0.7.1](https://github.com/TeamworkGuy2/JFileIo/commit/4b839936d74d9243b38f30fc57a32562281b9ba7) - 2016-10-08
 #### Changed
 * Updated dependency json-stringify to 0.2.0 latest version (use new instance based JsonStringify class)
 

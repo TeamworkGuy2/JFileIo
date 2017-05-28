@@ -13,7 +13,6 @@ import java.util.Map;
 
 import twg2.io.files.CharsetUtil;
 import twg2.io.files.FileRecursion;
-import twg2.io.files.Locations;
 import twg2.text.stringSearch.StringCompare;
 import twg2.text.stringUtils.StringHex;
 import twg2.text.stringUtils.StringReplace;
@@ -76,15 +75,6 @@ public final class IoUtilityTest {
 	}
 
 
-
-
-	private static void testLocations() {
-		Locations.setProgramMain(IoUtilityTest.class);
-		System.out.println("program file location: " + Locations.getProgramFileLocation());
-		System.out.println("program main class name: " + Locations.getProgramMainClassName());
-		System.out.println("program main class location: " + Locations.getRelativeClassPath(IoUtilityTest.class));
-		System.out.println("program relative file location: " + Locations.getRelativeResourceFile());
-	}
 
 
 	private static void testClosestString() {

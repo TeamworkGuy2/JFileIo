@@ -5,12 +5,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 
-import twg2.logging.LogWrapper;
-import twg2.logging.LogWrapperImpl;
-import twg2.logging.Logging;
+import twg2.logging.LogService;
+import twg2.logging.Logger;
+import twg2.logging.LoggerImpl;
 
 public class ReadInputStream implements Runnable {
-	private LogWrapper log;
+	private Logger log;
 	private InputStream in;
 	private OutputStream out;
 	private Object waitObj = new Object();
@@ -22,8 +22,8 @@ public class ReadInputStream implements Runnable {
 	 * @param outputStream the output stream to write the input
 	 * stream's contents to, or null to discard the contents.
 	 */
-	public ReadInputStream(InputStream inputStream, OutputStream outputStream, Logging log) {
-		this.log = log != null ? new LogWrapperImpl(log, this.getClass()) : null;
+	public ReadInputStream(InputStream inputStream, OutputStream outputStream, LogService log) {
+		this.log = log != null ? new LoggerImpl(log, this.getClass()) : null;
 		this.in = inputStream;
 		this.out = outputStream;
 	}
@@ -89,7 +89,7 @@ public class ReadInputStream implements Runnable {
 						}
 					} catch(IOException ioe) {
 						in = null;
-						if(Logging.wouldLog(log, Level.SEVERE)) {
+						if(Logger.wouldLog(log, Level.SEVERE)) {
 							log.log(Level.SEVERE, "Error reading input stream or writing output stream: ", ioe);
 						}
 					}
@@ -97,13 +97,13 @@ public class ReadInputStream implements Runnable {
 					// once the input stream read ends, wait for the wait object to be notified
 					// the loop checking for the inputStream to become not-null in case of spurious wait/notify calls
 					try {
-						if(Logging.wouldLog(log, Level.FINER)) {
+						if(Logger.wouldLog(log, Level.FINER)) {
 							log.log(Level.FINER, "thread '" + Thread.currentThread().getName() + (waitingForInNotNull ? "' start waiting for input stream" : "' start waiting") + ", (byteCount=" + readLength + ", inputStream=" + in + ")");
 						}
 
 						waitObj.wait(waitIntervalMs);
 
-						if(Logging.wouldLog(log, Level.FINER)) {
+						if(Logger.wouldLog(log, Level.FINER)) {
 							log.log(Level.FINER, "thread '" + Thread.currentThread().getName() + (waitingForInNotNull ? "' done waiting for input stream" : "' done waiting") + ", (byteCount=" + readLength + ", inputStream=" + in + ")");
 						}
 					} catch (InterruptedException e) {

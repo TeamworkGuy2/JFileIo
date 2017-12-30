@@ -30,11 +30,14 @@ public class FileFilterUtil {
 	 * each call to its {@link #getFileFilter() filter}
 	 */
 	public static final class Cache implements Matches<Path> {
+		@SuppressWarnings("unused")
 		private Predicate<Path>[] filters;
 		private Predicate<Path> compoundFilter;
 		private List<Path> matches;
 		private List<Path> failedMatches;
+		@SuppressWarnings("unused")
 		private boolean trackMatches;
+		@SuppressWarnings("unused")
 		private boolean trackFailedMatches;
 
 

@@ -5,13 +5,14 @@ import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.util.logging.Level;
 
-import twg2.logging.Logging;
+import twg2.logging.LogService;
+import twg2.logging.Logger;
 
 /** A wrapper for a {@link Process}, with fields for
  * accessing the underlying Process instance, the process start time, and the process result.<br>
  * See static helper methods:<br>
- * {@link #execSync(String, Logging)}<br>
- * {@link #execAsync(String, Logging)}
+ * {@link #execSync(String, Logger)}<br>
+ * {@link #execAsync(String, Logger)}
  * @author TeamworkGuy2
  * @since 2015-6-14
  */
@@ -101,12 +102,12 @@ public final class ExecuteCmd {
 	 * @see Runtime#exec(String, String[], java.io.File)
 	 */
 	public Process execRuntimeCommand(String execCommand, Runtime runtime,
-			OutputStream outStream, OutputStream errStream, Logging log) {
+			OutputStream outStream, OutputStream errStream, LogService log) {
 		Thread inputReaderThread = null;
 		Thread errorReaderThread = null;
 
 		try {
-			if(Logging.wouldLog(log, Level.FINE)) {
+			if(LogService.wouldLog(log, Level.FINE)) {
 				log.log(Level.FINE, ExecuteCmd.class, "exec( %s )", execCommand);
 			}
 			this.process = runtime.exec(execCommand, null, null);
@@ -122,7 +123,7 @@ public final class ExecuteCmd {
 			this.startedSuccess = true;
 
 		} catch (IOException e) {
-			if(Logging.wouldLog(log, Level.SEVERE)) {
+			if(LogService.wouldLog(log, Level.SEVERE)) {
 				log.log(Level.SEVERE, ExecuteCmd.class, "Error executing: '%s'", execCommand, e);
 			}
 			else {
@@ -137,7 +138,7 @@ public final class ExecuteCmd {
 				errorReader.stop();
 			}
 
-			if(Logging.wouldLog(log, Level.SEVERE)) {
+			if(LogService.wouldLog(log, Level.SEVERE)) {
 				log.log(Level.SEVERE, ExecuteCmd.class, "Error waiting for exec() thread to finish running: '%s'", execCommand, e);
 			}
 			else {
@@ -155,7 +156,7 @@ public final class ExecuteCmd {
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
 	public static final Result execSync(String execCommand, Runtime runtime,
-			OutputStream outStream, OutputStream errStream, Logging log) {
+			OutputStream outStream, OutputStream errStream, LogService log) {
 		ExecuteCmd exeCmd = execAsync(execCommand, runtime, outStream, errStream, log);
 
 		return finishSync(exeCmd);
@@ -166,7 +167,7 @@ public final class ExecuteCmd {
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
 	public static final ExecuteCmd execAsync(String execCommand, Runtime runtime,
-			OutputStream outStream, OutputStream errStream, Logging log) {
+			OutputStream outStream, OutputStream errStream, LogService log) {
 		ExecuteCmd exeCmd = new ExecuteCmd();
 		exeCmd.execRuntimeCommand(execCommand, runtime, outStream, errStream, log);
 		return exeCmd;
@@ -178,7 +179,7 @@ public final class ExecuteCmd {
 	 * @return true if the command executed successfully, false if not
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
-	public static final Result execSync(String execCommand, Logging log) {
+	public static final Result execSync(String execCommand, LogService log) {
 		ProcessIoStreamFactory streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		return execSync(execCommand, streamFactory, log);
 	}
@@ -188,7 +189,7 @@ public final class ExecuteCmd {
 	 * @return true if the command executed successfully, false if not
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
-	public static final Result execSync(String execCommand, ProcessIoStreamFactory streamFactory, Logging log) {
+	public static final Result execSync(String execCommand, ProcessIoStreamFactory streamFactory, LogService log) {
 		try(OutputStream outStream = streamFactory.openOutputStream();
 				OutputStream errStream = streamFactory.openErrorOutputStream()) {
 			return execSync(execCommand, getDefaultRuntime(), outStream, errStream, log);
@@ -201,7 +202,7 @@ public final class ExecuteCmd {
 	/**
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
-	public static final ExecuteCmd execAsync(String execCommand, Logging log) {
+	public static final ExecuteCmd execAsync(String execCommand, LogService log) {
 		ProcessIoStreamFactory streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		return execAsync(execCommand, streamFactory, log);
 	}
@@ -210,7 +211,7 @@ public final class ExecuteCmd {
 	/**
 	 * @see #execRuntimeCommand(String, Runtime, OutputStream, OutputStream, Logging)
 	 */
-	public static final ExecuteCmd execAsync(String execCommand, ProcessIoStreamFactory streamFactory, Logging log) {
+	public static final ExecuteCmd execAsync(String execCommand, ProcessIoStreamFactory streamFactory, LogService log) {
 		try(OutputStream outStream = streamFactory.openOutputStream();
 				OutputStream errStream = streamFactory.openErrorOutputStream()) {
 			return execAsync(execCommand, getDefaultRuntime(), outStream, errStream, log);

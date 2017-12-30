@@ -77,7 +77,7 @@ public final class IoUtilityTest {
 
 
 
-	private static void testClosestString() {
+	static void testClosestString() {
 		{
 			@SuppressWarnings("unchecked")
 			Map.Entry<String, String>[] strs = new Map.Entry[] {
@@ -143,7 +143,7 @@ public final class IoUtilityTest {
 	}
 
 
-	private static void testToFromHex() throws IOException {
+	static void testToFromHex() throws IOException {
 		byte[] b = new byte[] { 1, 2, 3, 5, 7, 9, 10, 15, 20, 100, 127, -128, -10, 50};
 		StringReaderCustom source = new StringReaderCustom(StringHex.toHexString(b, 0, b.length));
 		source.setReadLessThanAsked(1);
@@ -157,7 +157,7 @@ public final class IoUtilityTest {
 
 		byte[] bytes2 = "testing a sentence of 23, it's \"content\" /contains\\ 'even' _number-of-characters!? A = 65;".getBytes(Charset.forName("US-ASCII"));
 		String str2Result = StringHex.toHexString(bytes2);
-		byte[] bytes2Result = StringHex.decodeHexString(str2Result);
+		result = StringHex.decodeHexString(str2Result);
 		if(b.length != result.length) { throw new Error(); }
 		for(int i = 0; i < b.length; i++) {
 			if(b[i] != result[i]) { throw new Error(); }
@@ -170,7 +170,7 @@ public final class IoUtilityTest {
 	}
 
 
-	private static void convertFilesFromCp1252ToUtf8() {
+	static void convertFilesFromCp1252ToUtf8() {
 		String rootFolder = "C:/Users/TeamworkGuy2/Documents/Java/Projects";
 		Charset inCharset = Charset.forName("cp1252");
 		Charset outCharset = Charset.forName("UTF-8");

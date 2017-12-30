@@ -17,7 +17,7 @@ import java.util.logging.Level;
 
 import twg2.io.files.FileVisitorUtil;
 import twg2.io.json.stringify.JsonStringify;
-import twg2.logging.Logging;
+import twg2.logging.LogService;
 
 /** A container for a group of {@link DirectorySearchInfo} instances associated with their paths
  * @author TeamworkGuy2
@@ -48,8 +48,8 @@ public class SourceFiles {
 	 * @param level the level of this logging action, the message is only generated if the logging instance will accept it
 	 * @param includeHeader whether to include a short description on the first line
 	 */
-	public void log(Logging log, Level level, boolean includeHeader) {
-		if(Logging.wouldLog(log, level)) {
+	public void log(LogService log, Level level, boolean includeHeader) {
+		if(LogService.wouldLog(log, level)) {
 			StringBuilder sb = new StringBuilder();
 			if(includeHeader) {
 				sb.append(newline);

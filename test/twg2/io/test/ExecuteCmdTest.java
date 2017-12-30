@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import twg2.io.exec.ExecuteCmd;
 import twg2.io.exec.ProcessIoStreamFactory;
-import twg2.logging.LoggingImpl;
-import twg2.logging.LoggingPrefixFormat;
+import twg2.logging.LogPrefixFormat;
+import twg2.logging.LogServiceImpl;
 
 /**
  * @author TeamworkGuy2
@@ -18,6 +18,7 @@ import twg2.logging.LoggingPrefixFormat;
  */
 public class ExecuteCmdTest {
 
+	@SuppressWarnings("resource")
 	@Test
 	public void testExecuteCmd() {
 		String javaHomeEnvVar = System.getProperty("java.home");
@@ -26,7 +27,7 @@ public class ExecuteCmdTest {
 
 		System.out.println("running: '" + javaExeHelpCmd + "'");
 
-		LoggingImpl log = new LoggingImpl(Level.ALL, System.out, LoggingPrefixFormat.LEVEL_AND_CLASS);
+		LogServiceImpl log = new LogServiceImpl(Level.ALL, System.out, LogPrefixFormat.LEVEL_AND_CLASS);
 
 		ProcessIoStreamFactory.MemoryStreams streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 		try(OutputStream outStream = streamFactory.openOutputStream();

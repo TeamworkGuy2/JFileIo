@@ -1,6 +1,6 @@
 JFileIo
 ==============
-version: 0.8.0
+version: 0.8.1
 
 Utilities for reading/writing data from/to files in Java. Includes:
 * Builders and utility methods for external process execution (i.e. runtime.exec(...))
@@ -40,7 +40,7 @@ Example - run a process asynchronously:
 ```Java
 public static void runCommand() throws IOException {
 	Runtime runtime = Runtime.getRuntime();
-	Logging log = new LoggingImpl(Level.ALL, System.out, LoggingImpl.PrefixFormat.NONE);
+	LogService log = new LogServiceImpl(Level.ALL, System.out, LogPrefixFormat.NONE);
 	ProcessIoStreamFactory streamFactory = new ProcessIoStreamFactory.MemoryStreams();
 	OutputStream outStream = streamFactory.openOutputStream();
 	OutputStream errStream = streamFactory.openErrorOutputStream();

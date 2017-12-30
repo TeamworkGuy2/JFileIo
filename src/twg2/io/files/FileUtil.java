@@ -44,6 +44,7 @@ public final class FileUtil {
 	 * @throws IOException if there is an error opening either of the files or copying the source file's
 	 * contents into the destination file
 	 */
+	@SuppressWarnings("resource")
 	public static void overwriteFile(final String newFilePath, final String oldFilePath) throws IOException {
 		FileChannel src = null;
 		FileChannel dest = null;
@@ -291,6 +292,7 @@ public final class FileUtil {
 	 * pre-condition: the byte buffer is at its start position
 	 * post-condition: the byte buffer has been rewound
 	 */
+	@SuppressWarnings("resource")
 	private static final void appendToEnd(final File file, final ByteBuffer contents) {
 		FileChannel fileChannel = null;
 		try {

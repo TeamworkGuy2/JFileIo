@@ -1,14 +1,22 @@
 JFileIo
 ==============
-version: 0.8.1
 
 Utilities for reading/writing data from/to files in Java. Includes:
 * Builders and utility methods for external process execution (i.e. runtime.exec(...))
 * Filtered FileVisitor builders which can be passed to Files.walkFileTree(...)
 * Rolling file renamer for creating log files or file snapshots/backups
-* File reader utility class for reading files using interal cache which is reused between file reads with smart buffer resizing to minimize garbage generated 
+* File reader utility class for reading files using internal cache which is reused between file reads with smart buffer resizing to minimize garbage generated 
 
-Take a look at the 'twg2.io.test' package for some examples of how the API can be used.
+Take a look at the `twg2.io.test` package for some examples of how the API can be used.
+
+
+--------
+## Reusable Buffered File Reading
+
+Reuses internal buffers to allow for nearly allocation free file loading on subsequent files read:
+```Java
+String text = FileReadUtil.threadLocalInst().readString(new File(...));
+```
 
 
 --------

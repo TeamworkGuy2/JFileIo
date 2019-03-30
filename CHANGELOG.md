@@ -4,7 +4,18 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-### [0.8.1](N/A) - 2017-12-30
+### [0.8.2](N/A) - 2019-03-30
+#### Changed
+* Rewrite `FileReadUtil`:
+  * Less array allocations
+  * Text decoding methods from `InputStream` -> `char[]` or `String` with optimized direct `CharsetDecoder.decode()` calls
+  * More helper methods for `File`, `InputStream`, and overloads with default `chunkSize` and `charsetDecoder` overrides
+  * Static default `ChunkSize` and `charsetDecoder` fields with setters to allow the `threadLocalInst()` constructor defaults to be set
+  * Bug fixes and better unit testing with `LimitedByteArrayInputStream` to replicate input stream `read()` calls that only return partial and require subseqent calls
+
+
+--------
+### [0.8.1](https://github.com/TeamworkGuy2/JFileIo/commit/73c98e3414a598f3faa979da2d0abcad2316627c) - 2017-12-30
 #### Changed
 * Upgrade to Java 9
 * Upgrade to JUnit 5
@@ -120,7 +131,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 --------
 ### [0.4.0](https://github.com/TeamworkGuy2/JFileIo/commit/65a89848376862c2fc3ce12e1e8e011e8166ae9f) - 2016-02-24
 #### Changed
-* Move twg2.io.log package to separate [JTwg2Logging] (https://github.com/TeamworkGuy2/JTwg2Logging) library
+* Move twg2.io.log package to separate [JTwg2Logging](https://github.com/TeamworkGuy2/JTwg2Logging) library
 
 
 --------
@@ -130,7 +141,7 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 * Updated FileReadUtil to only use thread local caches to prevent bugs when calling these static methods from multiple threads
 
 #### Removed
-* Removed some unused CharsetUtil methods 
+* Removed some unused CharsetUtil methods
 
 
 --------

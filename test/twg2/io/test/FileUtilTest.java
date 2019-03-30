@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import twg2.io.files.FileUtil;
-import checks.CheckTask;
+import twg2.junitassist.checks.CheckTask;
 
 /**
  * @author TeamworkGuy2

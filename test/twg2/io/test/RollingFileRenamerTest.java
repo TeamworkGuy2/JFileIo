@@ -7,9 +7,9 @@ import java.util.List;
 import org.junit.Test;
 
 import twg2.io.files.RollingFileRenamer;
+import twg2.junitassist.checks.CheckCollections;
 import twg2.text.stringTemplate.SingleIntTemplate;
 import twg2.text.stringTemplate.StringTemplateBuilder;
-import checks.CheckCollections;
 
 /**
  * @author TeamworkGuy2

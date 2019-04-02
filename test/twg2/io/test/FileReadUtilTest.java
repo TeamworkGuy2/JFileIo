@@ -27,12 +27,13 @@ public class FileReadUtilTest {
 	@Test
 	public void readBytesTest() throws IOException {
 		FileReadUtil inst = new FileReadUtil(null, 64); //FileReadUtil.threadLocalInst(); // can't set cache size
-		//setupFileReadUtilChunkSize(inst, 64);
 
+		byte[] bts0 = byteRange(0);
 		byte[] bts1 = byteRange(30);
 		byte[] bts2 = byteRange(128);
 
 		byte[][] byteArys = {
+				bts0,
 				bts1,
 				bts2,
 				ArrayUtil.concat(bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2, bts1, bts2, bts2),
@@ -62,11 +63,13 @@ public class FileReadUtilTest {
 	public void readCharsTest() throws IOException {
 		FileReadUtil inst = new FileReadUtil(null, 64); //FileReadUtil.threadLocalInst(); // can't set cache size
 
+		String str0 = "";
 		String str1 = "this string is longer than sixteen characters";
 		String str2 = "this string is 128 chars long to match the expected FileReadUtil array/buffer size when initial array/buffer fills and doubles!!";
 		String str3 = str1 + str2 + str2;
 
 		String[] strs = {
+				str0,
 				str1,
 				str2,
 				str3 + str3 + str3 + str3 + str3 + str3 + str3 + str3 + str3 + str3,

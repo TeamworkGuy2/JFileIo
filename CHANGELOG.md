@@ -4,7 +4,13 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-### [0.8.2](N/A) - 2019-03-30
+### [0.8.3](N/A) - 2019-04-01
+#### Fixed
+* Fix `FileReadUtil.decode()`, `readText()`, `readChars()`, and `readString()` overrides failing for empty streams/files
+
+
+--------
+### [0.8.2](https://github.com/TeamworkGuy2/JFileIo/commit/58cd72d7c839a526a78f04b6974ddb8162684171) - 2019-03-30
 #### Changed
 * Rewrite `FileReadUtil`:
   * Less array allocations
@@ -55,14 +61,14 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 --------
 ### [0.6.3](https://github.com/TeamworkGuy2/JFileIo/commit/5f3c0d03e6e603a65e85c9377ffc6b93fc2b6b0e) - 2016-08-18
 #### Added
-* Matches interface with getMatches() and getFailedMatches() (implemented by FileFilterUtil.Cache)
+* `Matches` interface with `getMatches()` and `getFailedMatches()` (implemented by `FileFilterUtil.Cache`)
 * Additional comments/documentation
 
 
 --------
 ### [0.6.2](https://github.com/TeamworkGuy2/JFileIo/commit/4682a1fd40d7b3364aea8f21742f5848ba52fbab) - 2016-08-14
 #### Added
-* ExecuteCmd getInputReader() and getErrorReader() and marked the input and error reader fields volatile
+* `ExecuteCmd` `getInputReader()` and `getErrorReader()` and marked the input and error reader fields volatile
 
 #### Changed
 * compiled jar file path from package-lib.json now matches where it's stored (in the /bin/ directory)

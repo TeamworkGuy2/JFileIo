@@ -510,9 +510,9 @@ public class FileReadUtil {
 	 */
 	public static CharBuffer decode(CharsetDecoder decoder, ByteBuffer in, CharBuffer out) throws CharacterCodingException {
 		int n = out.remaining();
-		out = out != null ? out : CharBuffer.allocate(n);
 
-		if (n == 0 && (in.remaining() == 0)) {
+		if (in.remaining() == 0) {
+			out.flip();
 			return out;
 		}
 
@@ -527,7 +527,7 @@ public class FileReadUtil {
 				break;
 			}
 			if (cr.isOverflow()) {
-				n = 2 * n + (n < 16 ? 4 : 0); // +4 to ensure progress when n is small
+				n = (n < 64 ? 64 : 2 * n); // don't mess with small buffers < 64 bytes
 				CharBuffer outNew = CharBuffer.allocate(n);
 				out.flip();
 				outNew.put(out);

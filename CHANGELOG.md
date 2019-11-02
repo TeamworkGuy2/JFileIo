@@ -4,7 +4,20 @@ This project does its best to adhere to [Semantic Versioning](http://semver.org/
 
 
 --------
-### [0.8.3](N/A) - 2019-04-01
+### [0.9.0](N/A) - 2019-11-02
+#### Added
+* `FileFilterUtil.standardSeparator(String, char)` overload
+
+#### Changed
+* `FileFilterUtil.standardizePathName()` -> `FileFilterUtil.standardSeparator()`
+* Clarified `Bytes` documentation
+
+#### Removed
+* Unused `WriteToFile` class
+
+
+--------
+### [0.8.3](https://github.com/TeamworkGuy2/JFileIo/commit/bba7aeae82a99f895f9deacc5f1befaac0352b85) - 2019-04-01
 #### Fixed
 * Fix `FileReadUtil.decode()`, `readText()`, `readChars()`, and `readString()` overrides failing for empty streams/files
 

@@ -14,13 +14,22 @@ import twg2.text.stringSearch.StringCompare;
  * @author TeamworkGuy2
  * @since 2015-9-19
  */
-public class FileFilterUtil {
+public final class FileFilterUtil {
+
+	private FileFilterUtil() { throw new AssertionError("cannot instantiate static class FileFilterUtil"); }
 
 
 	/** Replace filesystem specific separators in a string with the current {@link File#separatorChar}
 	 */
-	public static String standardizePathName(String path) {
+	public static String standardSeparator(String path) {
 		return path.replace('\\', File.separatorChar).replace('/', File.separatorChar);
+	}
+
+
+	/** Replace filesystem specific separators in a string with the 'separator'
+	 */
+	public static String standardSeparator(String path, char separator) {
+		return path.replace('\\', separator).replace('/', separator);
 	}
 
 

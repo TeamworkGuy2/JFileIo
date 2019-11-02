@@ -37,7 +37,7 @@ public final class CharsetUtil {
 	 * @param strs
 	 * @return true if the {@code strs} contained non-ASCII characters, false if all characters were ASCII
 	 */
-	public static final boolean checkForNonAsciiChars(String resourceName, List<String> strs) {
+	public static boolean checkForNonAsciiChars(String resourceName, List<String> strs) {
 		boolean res = false;
 		for(String str : strs) {
 			for(int i = 0, size = str.length(); i < size; i ++) {

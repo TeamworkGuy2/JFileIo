@@ -35,7 +35,7 @@ public final class FileUtil {
 	private static final long MAX_FILE_SIZE = 1073741824;
 
 
-	private FileUtil() { throw new AssertionError("cannot instantiate static class FileUtility"); }
+	private FileUtil() { throw new AssertionError("cannot instantiate static class FileUtil"); }
 
 
 	/** Overwrite the destination file with the source file
